@@ -29,7 +29,7 @@ def add_user(user):
 def display_table():
     conn = sqlite3.connect('user.db')
     c = conn.cursor()
-    c.execute("SELECT * FROM users WHERE last = 'Palmer'")
+    c.execute("SELECT * FROM users")
     rows = c.fetchall()
 
     for row in rows:
