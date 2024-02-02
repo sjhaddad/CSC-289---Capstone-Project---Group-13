@@ -26,6 +26,15 @@ def add_user(user):
     conn.close()
 
 
+def update_user(user):
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("UPDATE users SET total_income = :total_income, tax = :tax WHERE first = :first AND last = :last",
+              {'first': user.first, 'last': user.last, 'total_income': user.total_income, 'tax': user.tax})
+    conn.commit()
+    conn.close()
+
+
 def display_table():
     conn = sqlite3.connect('user.db')
     c = conn.cursor()
@@ -35,3 +44,17 @@ def display_table():
     for row in rows:
         print(row)
     conn.close()
+
+
+def display_user_info_by_name(first_name, last_name):
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM users WHERE first = :first AND last = :last",
+              {'first': first_name, 'last': last_name})
+    result = c.fetchone()
+    conn.close()
+
+    if result:
+        print(f"User Information: {result}")
+    else:
+        print(f"No user found with the name {first_name} {last_name}")
