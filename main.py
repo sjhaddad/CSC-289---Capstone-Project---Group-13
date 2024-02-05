@@ -1,17 +1,7 @@
-from interface_functions import *
+from interface import *
 
 
-def user_interface():
-    print("\nWelcome to Shuttle Cash!")
-    print("1) Enter new user information")
-    print("2) Edit user income by name")
-    print("3) Display all user information")
-    print("4) Display user information by name")
-    print("5) Exit")
-    choice = input("Please enter your choice: ")
-    return int(choice)
-
-
+user_interface()
 create_table()
 
 choice = 0
