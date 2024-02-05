@@ -1,5 +1,6 @@
 from user import User
 from sqlite import add_user, update_user, display_user_info_by_name, display_table
+from constants import *
 
 class Interface:
     def display_interface(self):
@@ -18,18 +19,13 @@ class Interface:
         first_name = input("Enter first name: ")
         last_name = input("Enter last name: ")
         marital_status = input("Single or married: ")
-        status = 0
-        if marital_status.capitalize() == "Single":
-            status = 12750
-        else:
-            status = 22500
         total_income = float(input("Enter total income: "))
-        if marital_status.capitalize() == "Single" and total_income <= 12750:
+        if marital_status.capitalize() == "Single" and total_income <= SINGLE_DEDUCTIBLE:
             print("Your income is below the taxable amount")
-        if marital_status.capitalize() == "Married" and total_income <= 25500:  # If we don't include this, users with negative taxes owed would be stored in the database
+        if marital_status.capitalize() == "Married" and total_income <= MARRIED_DEDUCTIBLE:  # If we don't include this, users with negative taxes owed would be stored in the database
             print("Your income is below the taxable amount")
         else:
-            user1 = User(first_name, last_name, status, total_income)
+            user1 = User(first_name, last_name, marital_status, total_income)
             add_user(user1)
             print("New user added")
 
