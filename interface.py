@@ -41,7 +41,7 @@ class Interface:
         total_income = float(input("Enter updated total income: "))
         user_to_update = User(first_name, last_name, 0, total_income)
         update_user(user_to_update)
-        return "Income has been edited"
+        print("Income has been edited")
 
 
     # 3
