@@ -34,8 +34,9 @@ class Interface:
     def edit_income(self):
         first_name = input("Enter first name: ")
         last_name = input("Enter last name: ")
+        status = input("Single or married: ")
         total_income = float(input("Enter updated total income: "))
-        user_to_update = User(first_name, last_name, 0, total_income)
+        user_to_update = User(first_name, last_name, status, total_income)
         update_user(user_to_update)
         print("Income has been edited")
 
