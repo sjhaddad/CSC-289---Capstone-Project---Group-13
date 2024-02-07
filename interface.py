@@ -20,17 +20,42 @@ class Interface:
 
     # 1
     def new_user(self):
-        first_name = input("Enter first name: ")
-        last_name = input("Enter last name: ")
-        marital_status = input("Single or married: ")
-        total_income = float(input("Enter total income: "))
+        first_name = input("Enter first name: ").upper().strip() # New addition |
+        while not first_name.isalpha():
+            print("Only letters are allowed.\n")
+            first_name = input("Enter first name: ").upper().strip()
+
+        last_name = input("Enter last name: ").upper().strip()
+        while not last_name.isalpha():
+            print("Only letters are allowed.\n")
+            last_name = input("Enter last name: ").upper().strip()
+
+        marital_status = input("Single or Married: ").upper().strip()
+        while not marital_status.isalpha() or marital_status not in ["SINGLE", "MARRIED"]:
+            print("\nOnly letters are allowed: ")
+            marital_status = input("Single or Married: ").upper().strip()
+
+        while True:
+            try:
+                total_income = float(input("Enter total income without punctuations: ").strip())
+                if total_income >= 0 and total_income.is_integer():
+                    break
+                elif total_income < 0:
+                    print("Debt cannot be entered as income\n")
+                else:
+                    print("Only whole numbers allowed\n")
+            except ValueError:
+                print("Please enter a valid number\n")
+
         if marital_status.capitalize() == "Single" and total_income <= SINGLE_DEDUCTIBLE:
             print("Your income is below the taxable amount")
-        if marital_status.capitalize() == "Married" and total_income <= MARRIED_DEDUCTIBLE:  # If we don't include this, users with negative taxes owed would be stored in the database
+            return
+        if marital_status.capitalize() == "Married" and total_income <= MARRIED_DEDUCTIBLE:
             print("Your income is below the taxable amount")
+            return
         else:
             user1 = User(first_name, last_name, marital_status, total_income)
-            self.sql.add_user(user1)
+            add_user(user1)
             print("New user added")
 
     # 2
