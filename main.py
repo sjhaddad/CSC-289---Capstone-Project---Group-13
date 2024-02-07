@@ -20,6 +20,6 @@ while choice != 5:
             ui.display_by_name()
         case 5:
             break
-        case _:  # Default value in case user inputs a choice that isn't specified
-            pass
+        case _:
+            print("\nCHOICE NOT IN SELECTION")
 print("Thank you for using Shuttle Cash!")
