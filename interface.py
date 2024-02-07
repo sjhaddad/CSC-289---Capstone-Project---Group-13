@@ -20,20 +20,20 @@ class Interface:
 
     # 1
     def new_user(self):
-        first_name = input("Enter first name: ").upper().strip() # New addition |
+        first_name = input("Enter first name: ").capitalize().strip() # New addition |
         while not first_name.isalpha():
             print("Only letters are allowed.\n")
-            first_name = input("Enter first name: ").upper().strip()
+            first_name = input("Enter first name: ").capitalize().strip()
 
-        last_name = input("Enter last name: ").upper().strip()
+        last_name = input("Enter last name: ").capitalize().strip()
         while not last_name.isalpha():
             print("Only letters are allowed.\n")
-            last_name = input("Enter last name: ").upper().strip()
+            last_name = input("Enter last name: ").capitalize().strip()
 
-        marital_status = input("Single or Married: ").upper().strip()
+        marital_status = input("Single or Married: ").capitalize().strip()
         while not marital_status.isalpha() or marital_status not in ["SINGLE", "MARRIED"]:
             print("\nOnly letters are allowed: ")
-            marital_status = input("Single or Married: ").upper().strip()
+            marital_status = input("Single or Married: ").capitalize().strip()
 
         while True:
             try:
