@@ -1,8 +1,10 @@
 from interface import Interface
-from sqlite import create_table
+from sqlite import Sqlite
 
 ui = Interface()
-create_table()
+sql = Sqlite()
+
+sql.create_table()
 
 choice = 0
 while choice != 5:
