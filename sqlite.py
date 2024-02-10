@@ -51,8 +51,10 @@ def display_table():
     rows = c.fetchall()
 
     for row in rows:
+        print("=======================================")
         print(row)
     conn.close()
+    print("=======================================")
 
 
 def display_user_info_by_name(first_name, last_name):
@@ -64,6 +66,10 @@ def display_user_info_by_name(first_name, last_name):
     conn.close()
 
     if result:
+        print("=========================================================")
         print(f"User Information: {result}")
     else:
+        print("=========================================================")
         print(f"No user found with the name {first_name} {last_name}")
+
+    print("=========================================================")
