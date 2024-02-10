@@ -1,13 +1,9 @@
 from user import User
-from sqlite import Sqlite
+from sqlite import add_user, update_user, display_user_info_by_name, display_table, is_user_valid
 from constants import *
 
 
 class Interface:
-
-    def __init__(self):
-        self.sql = Sqlite()
-
     def display_interface(self):
         print("\nWelcome to Shuttle Cash!")
         print("1) Enter new user information")
@@ -20,7 +16,7 @@ class Interface:
 
     # 1
     def new_user(self):
-        first_name = input("Enter first name: ").capitalize().strip() # New addition |
+        first_name = input("Enter first name: ").capitalize().strip()  # New addition |
         while not first_name.isalpha():
             print("Only letters are allowed.\n")
             first_name = input("Enter first name: ").capitalize().strip()
@@ -60,20 +56,26 @@ class Interface:
 
     # 2
     def edit_income(self):
-        first_name = input("Enter first name: ")
-        last_name = input("Enter last name: ")
+        first_name = input("Enter first name: ").capitalize()
+        last_name = input("Enter last name: ").capitalize()
+
+        if not is_user_valid(first_name, last_name):
+            print("User not found in the database. Please check the entered first and last name.")
+            return
+
         status = input("Single or married: ")
         total_income = float(input("Enter updated total income: "))
         user_to_update = User(first_name, last_name, status, total_income)
-        self.sql.update_user(user_to_update)
+        update_user(user_to_update)
         print("Income has been edited")
+
 
     # 3
     def display_info(self):
-        self.sql.display_table()
+        display_table()
 
     # 4
     def display_by_name(self):
         first_name = input("Enter first name: ")
         last_name = input("Enter last name: ")
-        self.sql.display_user_info_by_name(first_name, last_name)
+        display_user_info_by_name(first_name, last_name)
