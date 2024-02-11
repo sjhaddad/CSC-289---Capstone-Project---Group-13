@@ -12,25 +12,29 @@ class Interface:
         print("4) Display user information by name")
         print("5) Exit")
         choice = input("Please enter your choice: ")
-        return int(choice)
+        return choice
 
     # 1
     def new_user(self):
-        first_name = input("Enter first name: ").capitalize().strip()  # New addition |
+        # Take and validate input for user's first name
+        first_name = input("Enter first name: ").capitalize().strip()
         while not first_name.isalpha():
             print("Only letters are allowed.\n")
             first_name = input("Enter first name: ").capitalize().strip()
 
+        # Take and validate input for user's last name
         last_name = input("Enter last name: ").capitalize().strip()
         while not last_name.isalpha():
             print("Only letters are allowed.\n")
             last_name = input("Enter last name: ").capitalize().strip()
 
-        marital_status = input("Single or Married: ").capitalize().strip()
-        while not marital_status.isalpha() or marital_status not in ["SINGLE", "MARRIED"]:
-            print("\nOnly letters are allowed: ")
-            marital_status = input("Single or Married: ").capitalize().strip()
+        # Take and validate input for user's marital status
+        marital_status = input("Single or Married (S/M): ").capitalize().strip()
+        while marital_status not in ["S", "M"]:
+            print("\nInvalid input, please type either S or M")
+            marital_status = input("Single or Married (S/M): ").capitalize().strip()
 
+        # Take and validate input for total income
         while True:
             try:
                 total_income = float(input("Enter total income without punctuations: ").strip())
@@ -42,13 +46,12 @@ class Interface:
                     print("Only whole numbers allowed\n")
             except ValueError:
                 print("Please enter a valid number\n")
-
-        if marital_status.capitalize() == "Single" and total_income <= SINGLE_DEDUCTIBLE:
+        
+        # Validate that income is not below taxable amount
+        if marital_status.capitalize() == "S" and total_income <= SINGLE_DEDUCTIBLE:
             print("Your income is below the taxable amount")
-            return
-        if marital_status.capitalize() == "Married" and total_income <= MARRIED_DEDUCTIBLE:
+        if marital_status.capitalize() == "M" and total_income <= MARRIED_DEDUCTIBLE:
             print("Your income is below the taxable amount")
-            return
         else:
             user1 = User(first_name, last_name, marital_status, total_income)
             add_user(user1)
@@ -63,7 +66,7 @@ class Interface:
             print("User not found in the database. Please check the entered first and last name.")
             return
 
-        status = input("Single or married: ")
+        status = input("Single or married (S/M): ")
         total_income = float(input("Enter updated total income: "))
         user_to_update = User(first_name, last_name, status, total_income)
         update_user(user_to_update)
