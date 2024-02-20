@@ -4,7 +4,7 @@ from constants import *
 # from user_table_manager import User_table_manager
 
 
-class UserAccount:
+class Account:
 
     def __init__(self, user_name, password, email, first_name, last_name):
         self.user_name = user_name
@@ -49,5 +49,5 @@ class UserAccount:
         self.last_name = last_name
 
     def display_user_info(self):
-        print( f'\nUser Name: {UserAccount.get_user_name(self)}\nPassword: {UserAccount.get_password(self)}\n' \
-               f'Email: {UserAccount.get_email(self)}\nFirst Name: {UserAccount.get_first_name(self)}\nLast Name: {UserAccount.get_last_name(self)}\n')
+        print( f'\nUser Name: {self.get_user_name()}\nPassword: {self.get_password()}\n' \
+               f'Email: {self.get_email()}\nFirst Name: {self.get_first_name()}\nLast Name: {self.get_last_name()}\n')

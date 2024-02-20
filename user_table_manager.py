@@ -1,5 +1,5 @@
 import mysql.connector
-from user_account import UserAccount
+from account import Account
 
 
 class User_table_manager:
@@ -25,7 +25,7 @@ class User_table_manager:
 
         for row in rows:
             user_name, password, email, firstname, lastname, status = row
-            user_obj = UserAccount(user_name, password, email, firstname, lastname)
+            user_obj = Account(user_name, password, email, firstname, lastname)
             user_dict[user_name] = user_obj
 
         return user_dict
