@@ -8,6 +8,8 @@ user_table_functions = User_table_manager("database-2.cvi44qi26x3h.us-east-2.rds
 tax_table_functions = Tax_table_manager("database-2.cvi44qi26x3h.us-east-2.rds.amazonaws.com", "admin", "mypassword",
                                         database="Tax_Calculator")
 
+user_dictionary = user_table_functions.generate_user_dict()
+tax_dictionary = tax_table_functions.generate_tax_dict()
 ui = Interface()
 
 
@@ -26,9 +28,6 @@ def login():
         else:
             print("Access denied. Please try again.")
 
-
-user_dictionary = user_table_functions.generate_user_dict()
-tax_dictionary = tax_table_functions.generate_tax_dict()
 
 
 def manage_user_interface(user):
