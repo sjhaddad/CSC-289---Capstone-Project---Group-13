@@ -134,7 +134,13 @@ def manage_admin_interface():
                 print("\nCHOICE NOT IN SELECTION")
 
 
-choice = input("Enter 1 to create new account or 2 to log in: ")
+while True:
+    choice = input("Enter 1 to create a new account or 2 to log in: ")
+
+    if choice in ["1", "2"]:
+        break
+    else:
+        print("Invalid choice. Please enter either 1 or 2.")
 if choice == "1":
     new_user = ui.new_user()
     user_dictionary[new_user.user_name] = new_user
