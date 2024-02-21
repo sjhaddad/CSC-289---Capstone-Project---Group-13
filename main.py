@@ -22,7 +22,7 @@ while True:
     else:
         print("Invalid choice. Please enter either 1 or 2.")
 if choice == "1":
-    new_user = interface.new_user(user_table_manager)
+    new_user = interface.new_account(user_table_manager)
 
     interface.manage_user_interface(new_user, user_table_manager,tax_table_manager )
 

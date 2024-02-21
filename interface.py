@@ -4,7 +4,8 @@ from constants import *
 
 class Interface:
 
-    def new_user(self, user_table_manager):
+    # Creates a new user account
+    def new_account(self, user_table_manager):
         while True:
             user_name = input("Enter User Name: ")
             password = input("Enter Password: ")
@@ -38,20 +39,17 @@ class Interface:
         return choice
 
     def manage_user_interface(self, account, user_table_manager, tax_table_manager):
-
-        # current_user is user account object
-
         choice = 0
         while choice != 4:
-
             choice = self.display_user_interface()
             match choice:
+                # 1) Display all user information
                 case "1":
                     account.display_user_info()
                     account_records = tax_table_manager.get_tax_records(account.get_user_name())
                     for record in account_records:
                         record.display_tax_info()
-
+                # 2) Edit user profile
                 case "2":
                     while True:
                         print("Select an attribute to edit:")
@@ -61,7 +59,6 @@ class Interface:
                         print("4. Last Name")
                         print("5. Status")
                         print("6. Exit")
-
                         choice = input("Enter your choice: \n")
 
                         if choice == "1":
@@ -84,7 +81,7 @@ class Interface:
                             break
                         else:
                             print("Invalid choice. Please enter a number between 1 and 6.")
-
+                # 3) Generate income tax estimate
                 case "3":
                     year = input("Enter year: ")
                     status = input("Enter marital status (M/S): ")
@@ -104,18 +101,15 @@ class Interface:
                         income_tax = total_income * INCOME_TAX
 
                     tax_table_manager.add_tax_info(account.user_name, year, status, total_income, income_tax)
-
+                # 4) Exit
                 case "4":
                     break
-
+                # Default value
                 case _:
                     print("\nCHOICE NOT IN SELECTION")
 
     def display_admin_interface(self):
         print("\nWelcome to Shuttle Cash!")
-        # print("1) Generate estimate: ")
-
-        # print("2) Display user information")
         print("ADMIN OPTIONS")
         print("1) Display all user data")
         print("2) Display user information by user name")
@@ -131,22 +125,25 @@ class Interface:
         while choice != "5":
             choice = self.display_admin_interface()
             match choice:
+                # 1) Display all user data
                 case "1":
                     user_table_manager.display_table()
                     tax_table_manager.display_table()
+                # 2) Display user information by user name
                 case "2":
                     user_name = (input("Enter User Name to search: "))
                     account = user_table_manager.get_account_by_user_name(user_name)
                     account.display_user_info()
-
+                # 3) Delete user by user name
                 case "3":
                     user_id = input("Enter user name of user to delete: ")
-
                     user_table_manager.delete_user(user_id)
+                # 4) Display tax table
                 case "4":
                     tax_table_manager.display_table()
-
+                # 5) Exit
                 case "5":
                     break
+                # Default value
                 case _:
                     print("\nCHOICE NOT IN SELECTION")
