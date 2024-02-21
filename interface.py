@@ -134,6 +134,10 @@ class Interface:
                     user_name = (input("Enter User Name to search: "))
                     account = user_table_manager.get_account_by_user_name(user_name)
                     account.display_user_info()
+                    account_records = tax_table_manager.get_tax_records(user_name)
+                    for record in account_records:
+                        record.display_tax_info()
+
                 # 3) Delete user by user name
                 case "3":
                     user_id = input("Enter user name of user to delete: ")
