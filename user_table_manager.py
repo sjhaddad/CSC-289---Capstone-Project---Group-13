@@ -1,7 +1,6 @@
 import mysql.connector
 from account import Account
 
-
 class User_table_manager:
 
     def __init__(self, host, user, passwd, database):
@@ -17,6 +16,7 @@ class User_table_manager:
         )
         self.mycursor = self.db.cursor()
 
+    # ** THIS FUNCTION CURRENTLY UNUSED AS WE ARE NOT USING DICTS **
     def generate_user_dict(self):
         user_dict = {}  # Create an empty dictionary
         self.mycursor.execute("SELECT * FROM user")

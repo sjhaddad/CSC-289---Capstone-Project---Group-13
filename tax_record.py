@@ -1,6 +1,5 @@
 from constants import *
 
-
 class TaxRecord:
 
     def __init__(self, user_name, year, status, total_income):
@@ -40,6 +39,7 @@ class TaxRecord:
         self.total_income = total_income
         self.income_tax = total_income * INCOME_TAX
 
+    # Other methods
     def display_tax_info(self):
         print(f'\nYear: {self.year}\nStatus: {self.status}\n' \
               f'Total income: {self.total_income}\nIncome tax: {self.income_tax}\n')

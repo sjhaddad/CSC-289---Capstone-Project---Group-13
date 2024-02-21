@@ -13,7 +13,7 @@ tax_table_manager = Tax_table_manager("database-2.cvi44qi26x3h.us-east-2.rds.ama
 # Instantiate interface object
 interface = Interface()
 
-# Main loop
+# Landing page
 while True:
     choice = input("Enter 1 to create a new account or 2 to log in: ")
 
@@ -21,12 +21,14 @@ while True:
         break
     else:
         print("Invalid choice. Please enter either 1 or 2.")
+
+# User selected to create account
 if choice == "1":
     new_user = interface.new_account(user_table_manager)
 
     interface.manage_user_interface(new_user, user_table_manager,tax_table_manager )
 
-
+# User selected to log in
 elif choice == "2":
     account = interface.login(user_table_manager)
     if account.get_user_name() == "admin" and account.get_password() == "admin":

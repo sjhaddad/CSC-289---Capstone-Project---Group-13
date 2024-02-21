@@ -1,9 +1,7 @@
 from account import Account
 from constants import *
 
-
 class Interface:
-
     # Creates a new user account
     def new_account(self, user_table_manager):
         while True:
@@ -17,7 +15,7 @@ class Interface:
             if user_table_manager.add_user(user):
                 return user
 
-
+    # Handles login functionality if user selected option 2 to log in at initial UI prompt
     def login(self, user_table_manager):
         while True:
             user_name = input("Enter your user name: ")
@@ -29,6 +27,7 @@ class Interface:
                 print("Access denied. Please try again.")
         return account
 
+    # Displays the interface for a signed in user of non-admin account
     def display_user_interface(self):
         print("\nWelcome to Shuttle Cash!")
         print("1) Display all user information")
@@ -38,6 +37,7 @@ class Interface:
         choice = input("Please enter your choice: ")
         return choice
 
+    # Handles functionality for the interface for a signed in user of non-admin account
     def manage_user_interface(self, account, user_table_manager, tax_table_manager):
         choice = 0
         while choice != 4:
@@ -108,6 +108,7 @@ class Interface:
                 case _:
                     print("\nCHOICE NOT IN SELECTION")
 
+    # Displays the interface for a signed in user of admin type
     def display_admin_interface(self):
         print("\nWelcome to Shuttle Cash!")
         print("ADMIN OPTIONS")
@@ -120,6 +121,7 @@ class Interface:
 
         return choice
 
+    # Handles the functionality for the interface for a signed in user of admin type
     def manage_admin_interface(self, user_table_manager, tax_table_manager):
         choice = 0
         while choice != "5":
@@ -142,6 +144,7 @@ class Interface:
                 case "3":
                     user_id = input("Enter user name of user to delete: ")
                     user_table_manager.delete_user(user_id)
+                    tax_table_manager.delete_user(user_id)
                 # 4) Display tax table
                 case "4":
                     tax_table_manager.display_table()

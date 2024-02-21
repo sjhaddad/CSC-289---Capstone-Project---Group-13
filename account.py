@@ -1,9 +1,5 @@
 from constants import *
 
-
-# from user_table_manager import User_table_manager
-
-
 class Account:
 
     def __init__(self, user_name, password, email, first_name, last_name):
@@ -12,10 +8,8 @@ class Account:
         self.email = email
         self.first_name = first_name
         self.last_name = last_name
-
-        # self.user_table_manager = User_table_manager
-        # Getter methods
-
+    
+    # Getter methods
     def get_user_name(self):
         return self.user_name
 
@@ -31,8 +25,7 @@ class Account:
     def get_last_name(self):
         return self.last_name
 
-        # Setter methods
-
+    # Setter methods
     def set_user_name(self, user_name):
         self.user_name = user_name
 
@@ -48,6 +41,7 @@ class Account:
     def set_last_name(self, last_name):
         self.last_name = last_name
 
+    # Other methods
     def display_user_info(self):
         print( f'\nUser Name: {self.get_user_name()}\nPassword: {self.get_password()}\n' \
                f'Email: {self.get_email()}\nFirst Name: {self.get_first_name()}\nLast Name: {self.get_last_name()}\n')
