@@ -41,5 +41,5 @@ class TaxRecord:
         self.income_tax = total_income * INCOME_TAX
 
     def display_tax_info(self):
-        return(f'\nStatus: {self.status}\nYear: {self.year}\n' \
+        print(f'\nYear: {self.year}\nStatus: {self.status}\n' \
               f'Total income: {self.total_income}\nIncome tax: {self.income_tax}\n')

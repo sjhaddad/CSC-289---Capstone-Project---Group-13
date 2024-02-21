@@ -1,43 +1,32 @@
 from account import Account
-from user_table_manager import User_table_manager
 from constants import *
 
 
 class Interface:
 
-    def __init__(self):
-        self.user_table_manager = User_table_manager("database-2.cvi44qi26x3h.us-east-2.rds.amazonaws.com", "admin",
-                                                     "mypassword",
-                                                     database="Tax_Calculator")
+    def new_user(self, user_table_manager):
+        while True:
+            user_name = input("Enter User Name: ")
+            password = input("Enter Password: ")
+            email = input("Enter Email: ")
+            first_name = input("Enter First Name: ")
+            last_name = input("Enter Last Name: ")
+            user = Account(user_name, password, email, first_name, last_name)
 
-    def new_user(self):
-        user_table_functions = User_table_manager("database-2.cvi44qi26x3h.us-east-2.rds.amazonaws.com", "admin",
-                                                  "mypassword",
-                                                  database="Tax_Calculator")
+            if user_table_manager.add_user(user):
+                return user
 
-        user_name = input("Enter User Name: ")
-        password = input("Enter Password: ")
-        email = input("Enter Email: ")
-        first_name = input("Enter First Name: ")
-        last_name = input("Enter Last Name: ")
 
-        user = Account(user_name, password, email, first_name, last_name)
-        user_table_functions.add_user(user)
-
-        return user
-    
-    def login(self, user_dictionary):
+    def login(self, user_table_manager):
         while True:
             user_name = input("Enter your user name: ")
             password = input("Enter your password: ")
-
-            if user_name in dict.keys(user_dictionary) and user_dictionary[
-                user_name].get_password() == password:
-
-                return user_dictionary[
-                    user_name]
+            account = user_table_manager.authenticate_user(user_name, password)
+            if account:
+                break
             else:
                 print("Access denied. Please try again.")
+        return account
 
     def display_user_interface(self):
         print("\nWelcome to Shuttle Cash!")
@@ -47,22 +36,21 @@ class Interface:
         print("4) Exit\n")
         choice = input("Please enter your choice: ")
         return choice
-    
-    
-    def manage_user_interface(self, user, user_dictionary, tax_dictionary, user_table_functions, tax_table_functions):
+
+    def manage_user_interface(self, account, user_table_manager, tax_table_manager):
 
         # current_user is user account object
-        current_user = user_dictionary[user.get_user_name()]
+
         choice = 0
         while choice != 4:
 
             choice = self.display_user_interface()
             match choice:
                 case "1":
-                    current_user.display_user_info()
-                    for tax_object in tax_dictionary.values():
-                        if tax_object.user_name == current_user.user_name:
-                            print(tax_object.display_tax_info())
+                    account.display_user_info()
+                    account_records = tax_table_manager.get_tax_records(account.get_user_name())
+                    for record in account_records:
+                        record.display_tax_info()
 
                 case "2":
                     while True:
@@ -78,22 +66,21 @@ class Interface:
 
                         if choice == "1":
                             new_password = input("Enter new password: ")
-                            current_user.set_password(new_password)
+                            account.set_password(new_password)
                         elif choice == "2":
                             new_email = input("Enter new email: ")
-                            current_user.set_email(new_email)
+                            account.set_email(new_email)
                         elif choice == "3":
                             new_first_name = input("Enter new first name: ")
-                            current_user.set_first_name(new_first_name)
+                            account.set_first_name(new_first_name)
                         elif choice == "4":
                             new_last_name = input("Enter new last name: ")
-                            current_user.set_last_name(new_last_name)
+                            account.set_last_name(new_last_name)
                         elif choice == "5":
                             new_status = input("Enter new status: ")
-                            user.set_status(new_status)
+                            account.set_status(new_status)
                         elif choice == "6":
-                            user_table_functions.update_user(current_user)
-                            print("User dictionary updated")
+                            user_table_manager.update_user(account)
                             break
                         else:
                             print("Invalid choice. Please enter a number between 1 and 6.")
@@ -116,7 +103,7 @@ class Interface:
                     else:
                         income_tax = total_income * INCOME_TAX
 
-                    tax_table_functions.add_tax_info(current_user.user_name, year, status, total_income, income_tax)
+                    tax_table_manager.add_tax_info(account.user_name, year, status, total_income, income_tax)
 
                 case "4":
                     break
@@ -132,35 +119,32 @@ class Interface:
         print("ADMIN OPTIONS")
         print("1) Display all user data")
         print("2) Display user information by user name")
-        print("3) Delete user by ID")
+        print("3) Delete user by user name")
         print("4) Display tax table")
         print("5) Exit")
         choice = input("Please enter your choice: ")
 
         return choice
-    
-    def manage_admin_interface(self, user_table_functions, tax_table_functions, user_dictionary, tax_dictionary):
+
+    def manage_admin_interface(self, user_table_manager, tax_table_manager):
         choice = 0
         while choice != "5":
             choice = self.display_admin_interface()
             match choice:
                 case "1":
-                    user_table_functions.display_table()
-                    tax_table_functions.display_table()
+                    user_table_manager.display_table()
+                    tax_table_manager.display_table()
                 case "2":
                     user_name = (input("Enter User Name to search: "))
-                    if user_name in dict.keys(user_dictionary):
-                        print(user_dictionary[user_name].display_user_info())
-                        for tax_object in tax_dictionary.values():
-                            if tax_object.user_name == user_name:
-                                print(tax_object.display_tax_info())
+                    account = user_table_manager.get_account_by_user_name(user_name)
+                    account.display_user_info()
 
                 case "3":
-                    user_id = (input("Enter user name of user to delete: "))
-                    user_dictionary.pop(user_id)
-                    user_table_functions.delete_user(user_id)
+                    user_id = input("Enter user name of user to delete: ")
+
+                    user_table_manager.delete_user(user_id)
                 case "4":
-                    tax_table_functions.display_table()
+                    tax_table_manager.display_table()
 
                 case "5":
                     break

@@ -58,22 +58,27 @@ class User_table_manager:
         last_name = new_user.last_name
 
         try:
+            sql_mode_query = "SET SESSION sql_mode='STRICT_TRANS_TABLES'"
+            self.mycursor.execute(sql_mode_query)
+
+            # Define the INSERT INTO statement
             sql = "INSERT INTO user (user_name, password, email, first_name, last_name) VALUES (%s, %s, %s, %s, %s)"
             val = (user_name, password, email, first_name, last_name)
 
+            # Execute the INSERT INTO statement
             self.mycursor.execute(sql, val)
             self.db.commit()
 
             print("User added successfully")
+            return True
+
         except mysql.connector.Error as e:
             self.db.rollback()  # Rollback changes if an error occurs
-            print(f"Failed to add user: {e}")
-        # finally:
-        #     self.mycursor.close()  # Close cursor
-        #     self.db.close()  # Close database connection
+            print(f"User Name already exists. Please enter a different User Name.")
+
 
     def delete_user(self, user_id):
-        try:
+
             self.mycursor = self.db.cursor()
 
             # Define the primary key value of the record you want to delete
@@ -90,9 +95,6 @@ class User_table_manager:
 
             print("Record deleted successfully")
 
-        except mysql.connector.Error as e:
-            print(f"Error deleting record: {e}")
-
     def display_table(self):
 
         try:
@@ -100,20 +102,21 @@ class User_table_manager:
             rows = self.mycursor.fetchall()
 
             print("\nUser Table:")
-            print("{:<10} {:<10} {:<30} {:<20} {:<20}".format(
+            print("{:<20} {:<20} {:<30} {:<20} {:<20}".format(
                 "User Name", "Password", "E-mail", "First Name", "Last Name"))
             for row in rows:
-                user_id, email, password, firstname, lastname, status = row
-                print("{:<10} {:<10} {:<30} {:<20} {:<20} ".format(
+                user_id, email, password, firstname, lastname = row
+                print("{:<20} {:<20} {:<30} {:<20} {:<20} ".format(
                     user_id, email, password, firstname, lastname))
         except mysql.connector.Error as e:
             print(f"Failed to display table: {e}")
 
-    def search_by_user_id(self, user_id):
+
+    def search_by_user_name(self, user_name):
         mycursor = self.db.cursor()
 
-        query = "SELECT * FROM user WHERE user_id = %s"
-        mycursor.execute(query, (user_id,))
+        query = "SELECT * FROM user WHERE user_name = %s"
+        mycursor.execute(query, (user_name,))
 
         result = mycursor.fetchone()
 
@@ -129,5 +132,53 @@ class User_table_manager:
         else:
             print("Item not found")
 
+    def authenticate_user(self, user_name, password):
+        try:
+            # Create a cursor object to execute SQL statements
+            mycursor = self.db.cursor()
+
+            # Define the SQL statement to retrieve user credentials
+            sql = "SELECT * FROM user WHERE user_name = %s AND password = %s"
+            val = (user_name, password)
+
+            # Execute the SQL statement
+            mycursor.execute(sql, val)
+
+            # Fetch the result
+            result = mycursor.fetchone()
+
+            # Close the cursor and connection
+            # mycursor.close()
+
+            # Check if the result is not None (i.e., user exists)
+            if result:
+                user_name, password, email, first_name, last_name = result
+                user_account = Account(user_name, password, email, first_name, last_name)
+                return user_account
 
 
+
+        except mysql.connector.Error as e:
+            print(f"Database error: {e}")
+            return False
+
+    def get_account_by_user_name(self, user_name):
+
+        # Create a cursor object to execute SQL statements
+
+        # Define the SQL statement to retrieve user credentials
+        sql = "SELECT * FROM user WHERE user_name = %s"
+        val = (user_name,)
+
+        # Execute the SQL statement
+        self.mycursor.execute(sql, val)
+
+        # Fetch the result
+        result = self.mycursor.fetchone()
+        user_id, email, password, first_name, last_name = result
+
+
+
+        # Close the cursor and connection
+        # self.mycursor.close()
+        return Account(user_name, email, password, first_name, last_name)
