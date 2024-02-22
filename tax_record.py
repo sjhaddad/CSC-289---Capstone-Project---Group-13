@@ -2,14 +2,18 @@ from constants import *
 
 class TaxRecord:
 
-    def __init__(self, user_name, year, status, total_income):
+    def __init__(self, user_name, year, status, total_income, income_tax):
         self.user_name = user_name
         self.status = status
         self.year = year
         self.total_income = total_income
-        self.income_tax = total_income * INCOME_TAX
+        self.income_tax = income_tax
+
 
     # Getters
+    def get_income_tax(self):
+        return self.income_tax
+
     def get_user_name(self):
         return self.user_name
     
@@ -26,6 +30,8 @@ class TaxRecord:
         return self.income_tax
     
     # Setters
+    def set_income_tax(self, income_tax):
+        self.income_tax = income_tax
     def set_user_name(self, user_name):
         self.user_name = user_name
     

@@ -115,7 +115,7 @@ class Tax_table_manager:
                 # Unpack the record
                 tax_id, user_name, year, status, total_income, income_tax = record
                 # Create a Tax object and append it to the list
-                tax_obj = TaxRecord(user_name, year, status, total_income)
+                tax_obj = TaxRecord(user_name, year, status, total_income, income_tax)
                 tax_records.append(tax_obj)
 
             # Close the cursor after fetching and processing the results

@@ -2,6 +2,7 @@ from account import Account
 from constants import *
 from input_validatior import *
 
+
 class Interface:
     # Creates a new user account
     def new_account(self, user_table_manager):
@@ -58,7 +59,8 @@ class Interface:
                         print("2. Email")
                         print("3. First Name")
                         print("4. Last Name")
-                        print("5. Status")
+                        # Status editing has not been inplemented yet
+                        # print("5. Status")
                         print("6. Exit")
                         choice = input("Enter your choice: \n")
 
@@ -74,9 +76,9 @@ class Interface:
                         elif choice == "4":
                             new_last_name = input("Enter new last name: ")
                             account.set_last_name(new_last_name)
-                        elif choice == "5":
-                            new_status = input("Enter new status: ")
-                            account.set_status(new_status)
+                        # elif choice == "5":
+                        #     new_status = input("Enter new status: ")
+                        #     account.set_status(new_status)
                         elif choice == "6":
                             user_table_manager.update_user(account)
                             break
@@ -87,16 +89,17 @@ class Interface:
                     year = validate_year()
                     status = validate_marital_status()
                     total_income = validate_total_income()
-                    if status == 'M':
-                        total_income -= MARRIED_DEDUCTIBLE
-                    elif status == 'S':
-                        total_income -= SINGLE_DEDUCTIBLE
 
-                    if total_income < 0:
+                    if status == 'M' and total_income > 22500:
+                        total_income -= MARRIED_DEDUCTIBLE
+                        income_tax = total_income * INCOME_TAX
+                    elif status == 'S' and total_income > 12750:
+                        total_income -= SINGLE_DEDUCTIBLE
+                        income_tax = total_income * INCOME_TAX
+                    else:
                         print("Your income is below the taxable amount!")
                         income_tax = 0
-                    else:
-                        income_tax = total_income * INCOME_TAX
+
 
                     tax_table_manager.add_tax_info(account.user_name, year, status, total_income, income_tax)
                 # 4) Exit
@@ -142,7 +145,7 @@ class Interface:
                 case "3":
                     user_id = input("Enter user name of user to delete: ")
                     user_table_manager.delete_user(user_id)
-                    #tax_table_manager.delete_user(user_id)
+                    # tax_table_manager.delete_user(user_id)
                 # 4) Display tax table
                 case "4":
                     tax_table_manager.display_table()

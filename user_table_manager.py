@@ -8,13 +8,7 @@ class User_table_manager:
         self.user = user
         self.passwd = passwd
         self.database = database
-        self.db = mysql.connector.connect(
-            host=self.host,
-            user=self.user,
-            passwd=self.passwd,
-            database=self.database
-        )
-        self.mycursor = self.db.cursor()
+
 
     # ** THIS FUNCTION CURRENTLY UNUSED AS WE ARE NOT USING DICTS **
     def generate_user_dict(self):
@@ -31,6 +25,13 @@ class User_table_manager:
         return user_dict
 
     def update_user(self, updated_user):
+        db = mysql.connector.connect(
+            host=self.host,
+            user=self.user,
+            passwd=self.passwd,
+            database=self.database
+        )
+        mycursor = db.cursor()
         try:
 
             # Construct the UPDATE statement
@@ -41,16 +42,23 @@ class User_table_manager:
             # Execute the UPDATE statement with the new values
             values = (updated_user.password, updated_user.email, updated_user.first_name,
                       updated_user.last_name, updated_user.user_name)
-            self.mycursor.execute(update_query, values)
+            mycursor.execute(update_query, values)
 
             # Commit the transaction
-            self.db.commit()
+            db.commit()
             print("Database updated")
 
         except mysql.connector.Error as e:
             print(f"Error updating user information: {e}")
 
     def add_user(self, new_user):
+        db = mysql.connector.connect(
+            host=self.host,
+            user=self.user,
+            passwd=self.passwd,
+            database=self.database
+        )
+        mycursor = db.cursor()
         user_name = new_user.user_name
         password = new_user.password
         email = new_user.email
@@ -59,47 +67,59 @@ class User_table_manager:
 
         try:
             sql_mode_query = "SET SESSION sql_mode='STRICT_TRANS_TABLES'"
-            self.mycursor.execute(sql_mode_query)
+            mycursor.execute(sql_mode_query)
 
             # Define the INSERT INTO statement
             sql = "INSERT INTO user (user_name, password, email, first_name, last_name) VALUES (%s, %s, %s, %s, %s)"
             val = (user_name, password, email, first_name, last_name)
 
             # Execute the INSERT INTO statement
-            self.mycursor.execute(sql, val)
-            self.db.commit()
+            mycursor.execute(sql, val)
+            db.commit()
 
             print("User added successfully")
             return True
 
         except mysql.connector.Error as e:
-            self.db.rollback()  # Rollback changes if an error occurs
+            db.rollback()  # Rollback changes if an error occurs
             print(f"User Name already exists. Please enter a different User Name.")
 
 
     def delete_user(self, user_id):
+        db = mysql.connector.connect(
+            host=self.host,
+            user=self.user,
+            passwd=self.passwd,
+            database=self.database
+        )
+        mycursor = db.cursor()
 
-            self.mycursor = self.db.cursor()
 
-            # Define the primary key value of the record you want to delete
-            primary_key_value = user_id  # Replace with the specific primary key value
+        # Define the primary key value of the record you want to delete
+        primary_key_value = user_id  # Replace with the specific primary key value
 
-            # Define the SQL query to delete the record with the specified primary key
-            sql = "DELETE FROM user WHERE user_name = %s"
+        # Define the SQL query to delete the record with the specified primary key
+        sql = "DELETE FROM user WHERE user_name = %s"
 
-            # Execute the SQL query with the primary key value as a parameter
-            self.mycursor.execute(sql, (primary_key_value,))
+        # Execute the SQL query with the primary key value as a parameter
+        mycursor.execute(sql, (primary_key_value,))
 
-            # Commit the transaction
-            self.db.commit()
+        #Commit the transaction
+        db.commit()
 
-            print("Record deleted successfully")
+        print("Record deleted successfully")
 
     def display_table(self):
-
+        db = mysql.connector.connect(
+            host=self.host,
+            user=self.user,
+            passwd=self.passwd,
+            database=self.database
+        )
+        mycursor = db.cursor()
         try:
-            self.mycursor.execute("SELECT * FROM user")
-            rows = self.mycursor.fetchall()
+            mycursor.execute("SELECT * FROM user")
+            rows = mycursor.fetchall()
 
             print("\nUser Table:")
             print("{:<20} {:<20} {:<30} {:<20} {:<20}".format(
@@ -113,7 +133,13 @@ class User_table_manager:
 
 
     def search_by_user_name(self, user_name):
-        mycursor = self.db.cursor()
+        db = mysql.connector.connect(
+            host=self.host,
+            user=self.user,
+            passwd=self.passwd,
+            database=self.database
+        )
+        mycursor = db.cursor()
 
         query = "SELECT * FROM user WHERE user_name = %s"
         mycursor.execute(query, (user_name,))
@@ -133,9 +159,16 @@ class User_table_manager:
             print("Item not found")
 
     def authenticate_user(self, user_name, password):
+        db = mysql.connector.connect(
+            host=self.host,
+            user=self.user,
+            passwd=self.passwd,
+            database=self.database
+        )
+
         try:
             # Create a cursor object to execute SQL statements
-            mycursor = self.db.cursor()
+            mycursor = db.cursor()
 
             # Define the SQL statement to retrieve user credentials
             sql = "SELECT * FROM user WHERE user_name = %s AND password = %s"
@@ -163,7 +196,13 @@ class User_table_manager:
             return False
 
     def get_account_by_user_name(self, user_name):
-
+        db = mysql.connector.connect(
+            host=self.host,
+            user=self.user,
+            passwd=self.passwd,
+            database=self.database
+        )
+        mycursor = db.cursor()
         # Create a cursor object to execute SQL statements
 
         # Define the SQL statement to retrieve user credentials
@@ -171,10 +210,10 @@ class User_table_manager:
         val = (user_name,)
 
         # Execute the SQL statement
-        self.mycursor.execute(sql, val)
+        mycursor.execute(sql, val)
 
         # Fetch the result
-        result = self.mycursor.fetchone()
+        result = mycursor.fetchone()
         user_id, email, password, first_name, last_name = result
 
 
