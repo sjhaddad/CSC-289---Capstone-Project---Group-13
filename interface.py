@@ -142,7 +142,7 @@ class Interface:
                 case "3":
                     user_id = input("Enter user name of user to delete: ")
                     user_table_manager.delete_user(user_id)
-                    tax_table_manager.delete_user(user_id)
+                    #tax_table_manager.delete_user(user_id)
                 # 4) Display tax table
                 case "4":
                     tax_table_manager.display_table()
