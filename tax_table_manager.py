@@ -1,6 +1,7 @@
 import mysql.connector
 from tax_record import TaxRecord
 
+
 class Tax_table_manager:
 
     def __init__(self, host, user, passwd, database):
@@ -8,7 +9,6 @@ class Tax_table_manager:
         self.user = user
         self.passwd = passwd
         self.database = database
-
 
     # ** THIS FUNCTION CURRENTLY UNUSED AS WE ARE NOT USING DICTS **
     def generate_tax_dict(self):
@@ -108,7 +108,7 @@ class Tax_table_manager:
             mycursor.execute(sql, val)
 
             # Fetch all the results
-            results = self.mycursor.fetchall()
+            results = mycursor.fetchall()
 
             # Iterate over the fetched records
             for record in results:
@@ -119,7 +119,7 @@ class Tax_table_manager:
                 tax_records.append(tax_obj)
 
             # Close the cursor after fetching and processing the results
-            #self.mycursor.close()
+            # self.mycursor.close()
 
             # Return the list of Tax objects
             return tax_records
@@ -127,5 +127,3 @@ class Tax_table_manager:
         except mysql.connector.Error as e:
             print(f"Failed to fetch tax records: {e}")
             return None  # Return None in case of an error
-        
-    
