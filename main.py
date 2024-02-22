@@ -15,9 +15,9 @@ interface = Interface()
 
 # Landing page
 while True:
-    choice = input("Enter 1 to create a new account or 2 to log in: ")
+    choice = input("Enter 1 to create a new account, 2 to log in, or 3 to exit program: ")
 
-    if choice in ["1", "2"]:
+    if choice in ["1", "2", "3"]:
         break
     else:
         print("Invalid choice. Please enter either 1 or 2.")
@@ -35,3 +35,6 @@ elif choice == "2":
         interface.manage_admin_interface(user_table_manager, tax_table_manager)
     else:
         interface.manage_user_interface(account, user_table_manager, tax_table_manager)
+
+elif choice == "3":
+    exit
