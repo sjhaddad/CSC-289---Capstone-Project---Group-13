@@ -1,5 +1,6 @@
 from account import Account
 from constants import *
+from input_validatior import *
 
 class Interface:
     # Creates a new user account
@@ -83,17 +84,14 @@ class Interface:
                             print("Invalid choice. Please enter a number between 1 and 6.")
                 # 3) Generate income tax estimate
                 case "3":
-                    year = input("Enter year: ")
-                    status = input("Enter marital status (M/S): ")
-
-                    while status.capitalize() != 'M' and status.capitalize() != 'S':
-                        print("Error! Please enter M for Married or S for Single.\n")
-                        status = input("Enter marital status (M/S): ")
-                    total_income = float(input("Enter total income: "))
+                    year = validate_year()
+                    status = validate_marital_status()
+                    total_income = validate_total_income()
                     if status == 'M':
                         total_income -= MARRIED_DEDUCTIBLE
                     elif status == 'S':
                         total_income -= SINGLE_DEDUCTIBLE
+
                     if total_income < 0:
                         print("Your income is below the taxable amount!")
                         income_tax = 0
