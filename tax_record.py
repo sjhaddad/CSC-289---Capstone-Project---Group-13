@@ -48,4 +48,4 @@ class TaxRecord:
     # Other methods
     def display_tax_info(self):
         print(f'\nYear: {self.year}\nStatus: {self.status}\n' \
-              f'Total income: {self.total_income}\nIncome tax: {self.income_tax}\n')
+              f'Total income - deductible: {self.total_income}\nIncome tax: {self.income_tax}\n')

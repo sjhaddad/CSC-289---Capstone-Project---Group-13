@@ -16,7 +16,7 @@ def validate_total_income():
 
 def validate_marital_status():
     while True:
-        status = input("Enter marital status (M/S): ").strip().upper()
+        status = input("Enter marital status (M for Married, S for Single): ").strip().upper()
         if status == 'M' or status == 'S':
             return status
         else:

@@ -1,6 +1,6 @@
 from account import Account
 from constants import *
-from input_validatior import *
+from input_validator import *
 
 
 class Interface:
