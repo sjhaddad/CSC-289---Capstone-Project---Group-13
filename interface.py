@@ -63,11 +63,9 @@ class Interface:
                         choice = input("Enter your choice: \n")
 
                         if choice == "1":
-
                             account.set_password(validate_password())
                         elif choice == "2":
-
-                            account.set_email(validate_email())
+                            account.set_email(validate_email(account.get_user_name()))
                         elif choice == "3":
 
                             account.set_first_name(validate_first_name())
@@ -81,9 +79,10 @@ class Interface:
                             print("Invalid choice. Please enter a number between 1 and 5.")
                 # 3) Generate income tax estimate
                 case "3":
-                    year = validate_year()
+                    year = validate_year(account.get_user_name())
                     status = validate_status()
                     total_income = validate_total_income()
+
                     if status == 'M' and total_income > 22500:
                         adjusted_income = total_income - MARRIED_DEDUCTIBLE
                         income_tax = adjusted_income * INCOME_TAX

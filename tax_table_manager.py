@@ -127,3 +127,20 @@ class Tax_table_manager:
         except mysql.connector.Error as e:
             print(f"Failed to fetch tax records: {e}")
             return None  # Return None in case of an error
+
+    def is_year_unique(self, user_name, year):
+        db = mysql.connector.connect(
+            host=self.host,
+            user=self.user,
+            passwd=self.passwd,
+            database=self.database
+        )
+        mycursor = db.cursor()
+
+        sql = "SELECT COUNT(*) FROM tax WHERE user_name = %s AND year = %s"
+        val = (user_name, year)
+        mycursor.execute(sql, val)
+        count = mycursor.fetchone()[0] #COUNT( * ) returns numbers of rows with matching condition, my cursor returns tuple
+        return count == 0
+
+

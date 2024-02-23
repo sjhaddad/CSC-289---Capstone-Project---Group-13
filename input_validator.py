@@ -1,5 +1,9 @@
 from datetime import datetime
+from tax_table_manager import Tax_table_manager
 
+tax_table_manager = Tax_table_manager("database-2.cvi44qi26x3h.us-east-2.rds.amazonaws.com", "admin",
+                                           "mypassword",
+                                           database="Tax_Calculator")
 
 def validate_user_name():
     while True:
@@ -74,7 +78,7 @@ def validate_status():
             print("Input cannot be blank. Please enter a value.")
 
 
-def validate_year():
+def validate_year(user_name):
     while True:
         year_str = input("Enter a year: ").strip()
         if year_str:
@@ -85,7 +89,10 @@ def validate_year():
                     raise ValueError("Year must be exactly four digits")
                 if year < 1975 or year > current_year:
                     raise ValueError(f"Year must be between 1975 and {current_year}")
-                return year
+                if tax_table_manager.is_year_unique(user_name, year):
+                    return year
+                else:
+                    print("Error: Tax record for the specified year already exists.")
             except ValueError as e:
                 print("Invalid year format:", e)
         else:
