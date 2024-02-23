@@ -1,6 +1,7 @@
 import mysql.connector
 from account import Account
 
+
 class User_table_manager:
 
     def __init__(self, host, user, passwd, database):
@@ -8,7 +9,6 @@ class User_table_manager:
         self.user = user
         self.passwd = passwd
         self.database = database
-
 
     # ** THIS FUNCTION CURRENTLY UNUSED AS WE ARE NOT USING DICTS **
     def generate_user_dict(self):
@@ -135,8 +135,6 @@ class User_table_manager:
         except mysql.connector.Error as e:
             print(f"Failed to display table: {e}")
 
-
-
     def authenticate_user(self, user_name, password):
         db = mysql.connector.connect(
             host=self.host,
@@ -191,16 +189,59 @@ class User_table_manager:
         # Execute the SQL statement
         mycursor.execute(sql, val)
 
-        # Fetch the result
+        # Fetch the result2
+
         result = mycursor.fetchone()
         if result:
             user_id, email, password, first_name, last_name = result
             return Account(user_name, email, password, first_name, last_name)
 
-
-
-
-
         # Close the cursor and connection
         # self.mycursor.close()
 
+    def create_user_table(self):
+        db = mysql.connector.connect(
+            host=self.host,
+            user=self.user,
+            passwd=self.passwd,
+            database=self.database
+        )
+        mycursor = db.cursor()
+        create_table_query = """
+            CREATE TABLE user (
+                user_name VARCHAR(50) PRIMARY KEY,
+                password VARCHAR(50),
+                email VARCHAR(50),
+                first_name VARCHAR(50),
+                last_name VARCHAR(50)
+            )
+            """
+
+        # Execute the SQL statement to create the table
+        mycursor.execute(create_table_query)
+
+        # Commit the transaction
+        db.commit()
+
+        # Close the cursor and database connection
+        mycursor.close()
+        db.close()
+
+    def drop_user_table(self):
+        db = mysql.connector.connect(
+            host=self.host,
+            user=self.user,
+            passwd=self.passwd,
+            database=self.database
+        )
+        mycursor = db.cursor()
+
+        # Execute the SQL statement to create the table
+        mycursor.execute("DROP TABLE user")
+
+        # Commit the transaction
+        db.commit()
+
+        # Close the cursor and database connection
+        mycursor.close()
+        db.close()

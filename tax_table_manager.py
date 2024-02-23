@@ -121,4 +121,60 @@ class Tax_table_manager:
         count = mycursor.fetchone()[0] #COUNT( * ) returns numbers of rows with matching condition, my cursor returns tuple
         return count == 0
 
+    def create_tax_table(self):
+        # Connect to the MySQL database
+        db = mysql.connector.connect(
+            host=self.host,
+            user=self.user,
+            passwd=self.passwd,
+            database=self.database
+        )
 
+        # Create a cursor object to execute SQL statements
+        cursor = db.cursor()
+
+        # Define the SQL statement to create the tax table
+        create_table_query = """
+        CREATE TABLE tax (
+            tax_id INT AUTO_INCREMENT PRIMARY KEY,
+            user_name VARCHAR(255),
+            FOREIGN KEY (user_name) REFERENCES user(user_name),
+            year INT,
+            status VARCHAR(255),
+            total_income DECIMAL(10, 2),
+            income_tax DECIMAL(10, 2)
+        )
+        """
+
+        # Execute the SQL statement to create the table
+        cursor.execute(create_table_query)
+
+        # Commit the transaction
+        db.commit()
+
+        # Close the cursor and database connection
+        cursor.close()
+        db.close()
+
+    def drop_tax_table(self):
+            # Connect to the MySQL database
+            db = mysql.connector.connect(
+                host=self.host,
+                user=self.user,
+                passwd=self.passwd,
+                database=self.database
+            )
+            mycursor = db.cursor()
+
+            # Define the SQL statement to create the tax table
+
+
+            # Execute the SQL statement to create the table
+            mycursor.execute("DROP TABLE tax")
+
+            # Commit the transaction
+            db.commit()
+
+            # Close the cursor and database connection
+            mycursor.close()
+            db.close()
