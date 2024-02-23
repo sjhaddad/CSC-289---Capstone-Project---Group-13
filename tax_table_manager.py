@@ -44,29 +44,7 @@ class Tax_table_manager:
         except mysql.connector.Error as e:
             print(f"Failed to add user: {e}")
 
-    # def delete_user(self, user_name):
-    #         db = mysql.connector.connect(
-    #             host=self.host,
-    #             user=self.user,
-    #             passwd=self.passwd,
-    #             database=self.database
-    #         )
-    #         mycursor = db.cursor()
-    #         mycursor = db.cursor()
-    #
-    #         # Define the primary key value of the record you want to delete
-    #         primary_key_value = user_name  # Replace with the specific primary key value
-    #
-    #         # Define the SQL query to delete the record with the specified primary key
-    #         sql = "DELETE FROM tax WHERE user_name = %s"
-    #
-    #         # Execute the SQL query with the primary key value as a parameter
-    #         mycursor.execute(sql, (primary_key_value,))
-    #
-    #         # Commit the transaction
-    #         db.commit()
-    #
-    #         print("Record deleted successfully")
+
 
     def display_table(self):
         db = mysql.connector.connect(

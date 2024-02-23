@@ -20,8 +20,9 @@ class Interface:
     # Handles login functionality if user selected option 2 to log in at initial UI prompt
     def login(self, user_table_manager):
         while True:
-            user_name = input("Enter your user name: ")
-            password = input("Enter your password: ")
+            user_name = validate_user_name()
+            password = validate_password()
+
             account = user_table_manager.authenticate_user(user_name, password)
             if account:
                 break
@@ -126,17 +127,20 @@ class Interface:
                     tax_table_manager.display_table()
                 # 2) Display user information by user name
                 case "2":
-                    user_name = (input("Enter User Name to search: "))
-                    account = user_table_manager.get_account_by_user_name(user_name)
-                    account.display_user_info()
-                    account_records = tax_table_manager.get_tax_records(user_name)
-                    for record in account_records:
-                        record.display_tax_info()
+                    user_name = validate_user_name()
+                    if user_table_manager.get_account_by_user_name(user_name):
+                        account = user_table_manager.get_account_by_user_name(user_name)
+                        account.display_user_info()
+                        account_records = tax_table_manager.get_tax_records(user_name)
+                        for record in account_records:
+                            record.display_tax_info()
+                    else:
+                        print("Error: Unable to find a matching username.")
 
                 # 3) Delete user by user name
                 case "3":
-                    user_id = input("Enter user name of user to delete: ")
-                    user_table_manager.delete_user(user_id)
+                    user_name = validate_user_name()
+                    user_table_manager.delete_user(user_name)
                     # tax_table_manager.delete_user(user_id)
                 # 4) Display tax table
                 case "4":

@@ -84,8 +84,7 @@ class User_table_manager:
             db.rollback()  # Rollback changes if an error occurs
             print(f"User Name already exists. Please enter a different User Name.")
 
-
-    def delete_user(self, user_id):
+    def delete_user(self, user_name):
         db = mysql.connector.connect(
             host=self.host,
             user=self.user,
@@ -94,17 +93,22 @@ class User_table_manager:
         )
         mycursor = db.cursor()
 
+        # Check if the user_id exists in the table
+        sql_check = "SELECT * FROM user WHERE user_name = %s"
+        mycursor.execute(sql_check, (user_name,))
+        result = mycursor.fetchone()
 
-        # Define the primary key value of the record you want to delete
-        primary_key_value = user_id  # Replace with the specific primary key value
+        if result is None:
+            print("Error: User ID not found.")
+            return  # Exit the function if user_id does not exist
 
-        # Define the SQL query to delete the record with the specified primary key
-        sql = "DELETE FROM user WHERE user_name = %s"
+        # Define the SQL query to delete the record with the specified user_id
+        sql_delete = "DELETE FROM user WHERE user_name = %s"
 
-        # Execute the SQL query with the primary key value as a parameter
-        mycursor.execute(sql, (primary_key_value,))
+        # Execute the SQL query with the user_id value as a parameter
+        mycursor.execute(sql_delete, (user_name,))
 
-        #Commit the transaction
+        # Commit the transaction
         db.commit()
 
         print("Record deleted successfully")
@@ -132,31 +136,6 @@ class User_table_manager:
             print(f"Failed to display table: {e}")
 
 
-    def search_by_user_name(self, user_name):
-        db = mysql.connector.connect(
-            host=self.host,
-            user=self.user,
-            passwd=self.passwd,
-            database=self.database
-        )
-        mycursor = db.cursor()
-
-        query = "SELECT * FROM user WHERE user_name = %s"
-        mycursor.execute(query, (user_name,))
-
-        result = mycursor.fetchone()
-
-        if result:
-            user_id, email, password, first_name, last_name, status = result
-
-            print(f'\nUser ID: {user_id}')
-            print(f'Email: {email}')
-            print(f'Password: {password}')
-            print(f'First Name: {first_name}')
-            print(f'Last Name: {last_name}')
-            print(f'Status: {status}')
-        else:
-            print("Item not found")
 
     def authenticate_user(self, user_name, password):
         db = mysql.connector.connect(
@@ -214,10 +193,14 @@ class User_table_manager:
 
         # Fetch the result
         result = mycursor.fetchone()
-        user_id, email, password, first_name, last_name = result
+        if result:
+            user_id, email, password, first_name, last_name = result
+            return Account(user_name, email, password, first_name, last_name)
+
+
 
 
 
         # Close the cursor and connection
         # self.mycursor.close()
-        return Account(user_name, email, password, first_name, last_name)
+
