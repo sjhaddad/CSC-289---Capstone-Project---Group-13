@@ -65,17 +65,16 @@ class Interface:
                         choice = input("Enter your choice: \n")
 
                         if choice == "1":
-                            new_password = input("Enter new password: ")
-                            account.set_password(new_password)
+
+                            account.set_password(validate_password())
                         elif choice == "2":
-                            new_email = input("Enter new email: ")
-                            account.set_email(new_email)
+
+                            account.set_email(validate_email())
                         elif choice == "3":
-                            new_first_name = input("Enter new first name: ")
-                            account.set_first_name(new_first_name)
+
+                            account.set_first_name(validate_first_name())
                         elif choice == "4":
-                            new_last_name = input("Enter new last name: ")
-                            account.set_last_name(new_last_name)
+                            account.set_last_name(validate_last_name())
                         # elif choice == "5":
                         #     new_status = input("Enter new status: ")
                         #     account.set_status(new_status)
