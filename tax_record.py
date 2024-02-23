@@ -2,12 +2,13 @@ from constants import *
 
 class TaxRecord:
 
-    def __init__(self, user_name, year, status, total_income, income_tax):
+    def __init__(self, user_name, year, status, adjusted_income, income_tax):
         self.user_name = user_name
         self.status = status
         self.year = year
-        self.total_income = total_income
+        self.adjusted_income = adjusted_income
         self.income_tax = income_tax
+
 
 
     # Getters
@@ -47,5 +48,13 @@ class TaxRecord:
 
     # Other methods
     def display_tax_info(self):
-        print(f'\nYear: {self.year}\nStatus: {self.status}\n' \
-              f'Total income - deductible: {self.total_income}\nIncome tax: {self.income_tax}\n')
+        if self.income_tax == 0:
+            print("Year:", self.year)
+            print("Status:", self.status)
+            print("Total income:", f"${self.adjusted_income:.2f}")
+            print("No income tax owed.\n")
+        else:
+            print("Year:", self.year)
+            print("Status:", self.status)
+            print("Total income - deductible:", f"${self.adjusted_income:.2f}")
+            print(f"Income tax: ${self.income_tax:.2f}\n")

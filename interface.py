@@ -7,11 +7,11 @@ class Interface:
     # Creates a new user account
     def new_account(self, user_table_manager):
         while True:
-            user_name = input("Enter User Name: ")
-            password = input("Enter Password: ")
-            email = input("Enter Email: ")
-            first_name = input("Enter First Name: ")
-            last_name = input("Enter Last Name: ")
+            user_name = validate_user_name()
+            password = validate_password()
+            email = validate_email()
+            first_name = validate_first_name()
+            last_name = validate_last_name()
             user = Account(user_name, password, email, first_name, last_name)
 
             if user_table_manager.add_user(user):
@@ -61,7 +61,7 @@ class Interface:
                         print("4. Last Name")
                         # Status editing has not been inplemented yet
                         # print("5. Status")
-                        print("6. Exit")
+                        print("6. Submit changes")
                         choice = input("Enter your choice: \n")
 
                         if choice == "1":
@@ -87,21 +87,19 @@ class Interface:
                 # 3) Generate income tax estimate
                 case "3":
                     year = validate_year()
-                    status = validate_marital_status()
+                    status = validate_status()
                     total_income = validate_total_income()
-
                     if status == 'M' and total_income > 22500:
-                        total_income -= MARRIED_DEDUCTIBLE
-                        income_tax = total_income * INCOME_TAX
+                        adjusted_income = total_income - MARRIED_DEDUCTIBLE
+                        income_tax = adjusted_income * INCOME_TAX
                     elif status == 'S' and total_income > 12750:
-                        total_income -= SINGLE_DEDUCTIBLE
-                        income_tax = total_income * INCOME_TAX
+                        adjusted_income = total_income - SINGLE_DEDUCTIBLE
+                        income_tax = adjusted_income * INCOME_TAX
                     else:
-                        print("Your income is below the taxable amount!")
+                        adjusted_income = total_income
                         income_tax = 0
 
-
-                    tax_table_manager.add_tax_info(account.user_name, year, status, total_income, income_tax)
+                    tax_table_manager.add_tax_info(account.user_name, year, status, adjusted_income, income_tax)
                 # 4) Exit
                 case "4":
                     break
