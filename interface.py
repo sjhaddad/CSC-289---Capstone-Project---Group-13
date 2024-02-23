@@ -54,14 +54,12 @@ class Interface:
                 # 2) Edit user profile
                 case "2":
                     while True:
-                        print("Select an attribute to edit:")
+                        print("\nSelect an attribute to edit:")
                         print("1. Password")
                         print("2. Email")
                         print("3. First Name")
                         print("4. Last Name")
-                        # Status editing has not been inplemented yet
-                        # print("5. Status")
-                        print("6. Submit changes")
+                        print("5. Submit changes")
                         choice = input("Enter your choice: \n")
 
                         if choice == "1":
@@ -75,14 +73,12 @@ class Interface:
                             account.set_first_name(validate_first_name())
                         elif choice == "4":
                             account.set_last_name(validate_last_name())
-                        # elif choice == "5":
-                        #     new_status = input("Enter new status: ")
-                        #     account.set_status(new_status)
-                        elif choice == "6":
+
+                        elif choice == "5":
                             user_table_manager.update_user(account)
                             break
                         else:
-                            print("Invalid choice. Please enter a number between 1 and 6.")
+                            print("Invalid choice. Please enter a number between 1 and 5.")
                 # 3) Generate income tax estimate
                 case "3":
                     year = validate_year()
