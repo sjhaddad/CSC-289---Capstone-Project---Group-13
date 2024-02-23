@@ -5,10 +5,10 @@ from constants import *
 
 user_table_manager = User_table_manager("database-2.cvi44qi26x3h.us-east-2.rds.amazonaws.com", "admin",
                                              "mypassword",
-                                             database="Tax_Calculator")
+                                             database="test_encryption")
 tax_table_manager = Tax_table_manager("database-2.cvi44qi26x3h.us-east-2.rds.amazonaws.com", "admin",
                                            "mypassword",
-                                           database="Tax_Calculator")
+                                           database="test_encryption")
 
 # Instantiate interface object
 interface = Interface()

@@ -1,9 +1,9 @@
 from datetime import datetime
 from tax_table_manager import Tax_table_manager
-
+import bcrypt
 tax_table_manager = Tax_table_manager("database-2.cvi44qi26x3h.us-east-2.rds.amazonaws.com", "admin",
                                            "mypassword",
-                                           database="Tax_Calculator")
+                                           database="test_encryption")
 
 def validate_user_name():
     while True:
@@ -18,6 +18,7 @@ def validate_password():
     while True:
         password = input("Enter a password: ")
         if password:
+
             return password
         else:
             print("Input cannot be blank. Please enter a value.")

@@ -10,20 +10,6 @@ class User_table_manager:
         self.passwd = passwd
         self.database = database
 
-    # ** THIS FUNCTION CURRENTLY UNUSED AS WE ARE NOT USING DICTS **
-    def generate_user_dict(self):
-        user_dict = {}  # Create an empty dictionary
-        self.mycursor.execute("SELECT * FROM user")
-
-        rows = self.mycursor.fetchall()
-
-        for row in rows:
-            user_name, password, email, firstname, lastname, status = row
-            user_obj = Account(user_name, password, email, firstname, lastname)
-            user_dict[user_name] = user_obj
-
-        return user_dict
-
     def update_user(self, updated_user):
         db = mysql.connector.connect(
             host=self.host,
@@ -61,13 +47,12 @@ class User_table_manager:
         mycursor = db.cursor()
         user_name = new_user.user_name
         password = new_user.password
+        print(type(password))
         email = new_user.email
         first_name = new_user.first_name
         last_name = new_user.last_name
 
         try:
-            sql_mode_query = "SET SESSION sql_mode='STRICT_TRANS_TABLES'"
-            mycursor.execute(sql_mode_query)
 
             # Define the INSERT INTO statement
             sql = "INSERT INTO user (user_name, password, email, first_name, last_name) VALUES (%s, %s, %s, %s, %s)"
@@ -82,7 +67,7 @@ class User_table_manager:
 
         except mysql.connector.Error as e:
             db.rollback()  # Rollback changes if an error occurs
-            print(f"User Name already exists. Please enter a different User Name.")
+            print(f"User Name already exists. Please enter a different User Name.{e}")
 
     def delete_user(self, user_name):
         db = mysql.connector.connect(
@@ -126,51 +111,16 @@ class User_table_manager:
             rows = mycursor.fetchall()
 
             print("\nUser Table:")
-            print("{:<20} {:<20} {:<30} {:<20} {:<20}".format(
+            print("{:<20} {:<40} {:<30} {:<20} {:<20}".format(
                 "User Name", "Password", "E-mail", "First Name", "Last Name"))
             for row in rows:
-                user_id, email, password, firstname, lastname = row
-                print("{:<20} {:<20} {:<30} {:<20} {:<20} ".format(
-                    user_id, email, password, firstname, lastname))
+                user_name, password, email, firstname, lastname = row
+                password_hex = password.hex()
+                password_hex_shortened = password_hex[:30]
+                print("{:<20} {:<40} {:<30} {:<20} {:<20} ".format(
+                    user_name, password_hex_shortened, email, firstname, lastname))
         except mysql.connector.Error as e:
             print(f"Failed to display table: {e}")
-
-    def authenticate_user(self, user_name, password):
-        db = mysql.connector.connect(
-            host=self.host,
-            user=self.user,
-            passwd=self.passwd,
-            database=self.database
-        )
-
-        try:
-            # Create a cursor object to execute SQL statements
-            mycursor = db.cursor()
-
-            # Define the SQL statement to retrieve user credentials
-            sql = "SELECT * FROM user WHERE user_name = %s AND password = %s"
-            val = (user_name, password)
-
-            # Execute the SQL statement
-            mycursor.execute(sql, val)
-
-            # Fetch the result
-            result = mycursor.fetchone()
-
-            # Close the cursor and connection
-            # mycursor.close()
-
-            # Check if the result is not None (i.e., user exists)
-            if result:
-                user_name, password, email, first_name, last_name = result
-                user_account = Account(user_name, password, email, first_name, last_name)
-                return user_account
-
-
-
-        except mysql.connector.Error as e:
-            print(f"Database error: {e}")
-            return False
 
     def get_account_by_user_name(self, user_name):
         db = mysql.connector.connect(
@@ -193,8 +143,10 @@ class User_table_manager:
 
         result = mycursor.fetchone()
         if result:
-            user_id, email, password, first_name, last_name = result
-            return Account(user_name, email, password, first_name, last_name)
+            user_name, password, email, first_name, last_name = result
+            password = bytes(password)
+
+            return Account(user_name, password, email, first_name, last_name)
 
         # Close the cursor and connection
         # self.mycursor.close()
@@ -210,7 +162,7 @@ class User_table_manager:
         create_table_query = """
             CREATE TABLE user (
                 user_name VARCHAR(50) PRIMARY KEY,
-                password VARCHAR(50),
+                password VARBINARY(100),
                 email VARCHAR(50),
                 first_name VARCHAR(50),
                 last_name VARCHAR(50)

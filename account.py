@@ -43,5 +43,5 @@ class Account:
 
     # Other methods
     def display_user_info(self):
-        print( f'\nUser Name: {self.get_user_name()}\nPassword: {self.get_password()}\n' \
+        print( f'\nUser Name: {self.get_user_name()}\n' 
                f'Email: {self.get_email()}\nFirst Name: {self.get_first_name()}\nLast Name: {self.get_last_name()}\n')

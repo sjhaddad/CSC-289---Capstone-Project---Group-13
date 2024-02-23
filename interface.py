@@ -1,6 +1,7 @@
 from account import Account
 from constants import *
 from input_validator import *
+import bcrypt
 
 
 class Interface:
@@ -9,10 +10,13 @@ class Interface:
         while True:
             user_name = validate_user_name()
             password = validate_password()
+
+            hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
             email = validate_email()
             first_name = validate_first_name()
             last_name = validate_last_name()
-            user = Account(user_name, password, email, first_name, last_name)
+            user = Account(user_name, hashed_password, email, first_name, last_name)
 
             if user_table_manager.add_user(user):
                 return user
@@ -23,10 +27,16 @@ class Interface:
             user_name = validate_user_name()
             password = validate_password()
             if user_name == "admin" and password == "admin":
-                return Account("admin", "admin", None,None,None)
-            account = user_table_manager.authenticate_user(user_name, password)
+                return Account("admin", "admin", None, None, None)
+
+            account = user_table_manager.get_account_by_user_name(user_name)
             if account:
-                break
+
+                if bcrypt.checkpw(password.encode('utf-8'), account.get_password()):
+                    break
+                else:
+                    print("Access denied. Please try again.")
+
             else:
                 print("Access denied. Please try again.")
         return account

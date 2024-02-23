@@ -10,20 +10,6 @@ class Tax_table_manager:
         self.passwd = passwd
         self.database = database
 
-    # ** THIS FUNCTION CURRENTLY UNUSED AS WE ARE NOT USING DICTS **
-    def generate_tax_dict(self):
-        tax_dict = {}  # Create an empty dictionary
-        self.mycursor.execute("SELECT * FROM tax")
-
-        tax_table = self.mycursor.fetchall()
-
-        for record in tax_table:
-            tax_id, user_name, year, status, total_income, income_tax = record
-            tax_obj = TaxRecord(user_name, year, status, total_income)
-            tax_dict[tax_id] = tax_obj
-
-        return tax_dict
-
     def add_tax_info(self, user_name, year, status, total_income, income_tax):
         db = mysql.connector.connect(
             host=self.host,
@@ -43,8 +29,6 @@ class Tax_table_manager:
             # self.db.close()
         except mysql.connector.Error as e:
             print(f"Failed to add user: {e}")
-
-
 
     def display_table(self):
         db = mysql.connector.connect(
@@ -118,7 +102,8 @@ class Tax_table_manager:
         sql = "SELECT COUNT(*) FROM tax WHERE user_name = %s AND year = %s"
         val = (user_name, year)
         mycursor.execute(sql, val)
-        count = mycursor.fetchone()[0] #COUNT( * ) returns numbers of rows with matching condition, my cursor returns tuple
+        count = mycursor.fetchone()[
+            0]  # COUNT( * ) returns numbers of rows with matching condition, my cursor returns tuple
         return count == 0
 
     def create_tax_table(self):
@@ -157,24 +142,23 @@ class Tax_table_manager:
         db.close()
 
     def drop_tax_table(self):
-            # Connect to the MySQL database
-            db = mysql.connector.connect(
-                host=self.host,
-                user=self.user,
-                passwd=self.passwd,
-                database=self.database
-            )
-            mycursor = db.cursor()
+        # Connect to the MySQL database
+        db = mysql.connector.connect(
+            host=self.host,
+            user=self.user,
+            passwd=self.passwd,
+            database=self.database
+        )
+        mycursor = db.cursor()
 
-            # Define the SQL statement to create the tax table
+        # Define the SQL statement to create the tax table
 
+        # Execute the SQL statement to create the table
+        mycursor.execute("DROP TABLE tax")
 
-            # Execute the SQL statement to create the table
-            mycursor.execute("DROP TABLE tax")
+        # Commit the transaction
+        db.commit()
 
-            # Commit the transaction
-            db.commit()
-
-            # Close the cursor and database connection
-            mycursor.close()
-            db.close()
+        # Close the cursor and database connection
+        mycursor.close()
+        db.close()
