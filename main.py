@@ -5,10 +5,10 @@ from constants import *
 
 user_table_manager = User_table_manager("database-2.cvi44qi26x3h.us-east-2.rds.amazonaws.com", "admin",
                                              "mypassword",
-                                             database="test_encryption")
+                                             database="new_tax_table")
 tax_table_manager = Tax_table_manager("database-2.cvi44qi26x3h.us-east-2.rds.amazonaws.com", "admin",
                                            "mypassword",
-                                           database="test_encryption")
+                                           database="new_tax_table")
 
 # Instantiate interface object
 interface = Interface()
@@ -26,7 +26,7 @@ while True:
 if choice == "1":
     new_user = interface.new_account(user_table_manager)
 
-    interface.manage_user_interface(new_user, user_table_manager,tax_table_manager )
+    interface.manage_user_interface(new_user, user_table_manager, tax_table_manager)
 
 # User selected to log in
 elif choice == "2":

@@ -10,7 +10,13 @@ class Tax_table_manager:
         self.passwd = passwd
         self.database = database
 
-    def add_tax_info(self, user_name, year, status, total_income, income_tax):
+    def add_tax_info(self, tax_record):
+        user_name = tax_record.get_user_name()
+        year = tax_record.get_year()
+        status = tax_record.get_status()
+        total_income = tax_record.get_total_income()
+        adjusted_total_income = tax_record.get_adjusted_total_income()
+        income_tax = tax_record.get_income_tax()
         db = mysql.connector.connect(
             host=self.host,
             user=self.user,
@@ -20,11 +26,11 @@ class Tax_table_manager:
         mycursor = db.cursor()
 
         try:
-            sql = "INSERT INTO tax (user_name, year, status, total_income, income_tax) VALUES (%s, %s, %s, %s, %s)"
-            val = (user_name, year, status, total_income, income_tax)
+            sql = "INSERT INTO tax (user_name, year, status, total_income, adjusted_total_income, income_tax) VALUES (%s, %s, %s, %s, %s, %s)"
+            val = (user_name, year, status, total_income, adjusted_total_income, income_tax)
             mycursor.execute(sql, val)
             db.commit()
-            print(f'Estimated income tax: {income_tax}')
+            print(f'Estimated income tax: ${income_tax:.2f}')
             # self.mycursor.close()
             # self.db.close()
         except mysql.connector.Error as e:
@@ -43,12 +49,12 @@ class Tax_table_manager:
             rows = mycursor.fetchall()
 
             print("\nTax Table:")
-            print("{:<10} {:<30} {:<20} {:<20} {:<20} {:<20}".format(
-                "Tax ID", "User Name", "Year", "Status", "Total Income", "Income Tax"))
+            print("{:<10} {:<30} {:<20} {:<20} {:<20} {:<30} {:<20}".format(
+                "Tax ID", "User Name", "Year", "Status", "Total Income", "Adjusted Income", "Income Tax"))
             for row in rows:
-                tax_id, user_name, year, status, total_income, income_tax = row
-                print("{:<10} {:<30} {:<20} {:<20} {:<20} {:<20}".format(
-                    tax_id, user_name, year, status, total_income, income_tax))
+                tax_id, user_name, year, status, total_income, adjusted_total_income, income_tax = row
+                print("{:<10} {:<30} {:<20} {:<20} {:<20}{:<30} {:<20}".format(
+                    tax_id, user_name, year, status, total_income, adjusted_total_income, income_tax))
         except mysql.connector.Error as e:
             print(f"Failed to display table: {e}")
 
@@ -75,9 +81,9 @@ class Tax_table_manager:
             # Iterate over the fetched records
             for record in results:
                 # Unpack the record
-                tax_id, user_name, year, status, total_income, income_tax = record
+                tax_id, user_name, year, status, total_income, adjusted_total_income, income_tax = record
                 # Create a Tax object and append it to the list
-                tax_obj = TaxRecord(user_name, year, status, total_income, income_tax)
+                tax_obj = TaxRecord(user_name, year, status, total_income)
                 tax_records.append(tax_obj)
 
             # Close the cursor after fetching and processing the results
@@ -122,12 +128,13 @@ class Tax_table_manager:
         create_table_query = """
         CREATE TABLE tax (
             tax_id INT AUTO_INCREMENT PRIMARY KEY,
-            user_name VARCHAR(255),
+            user_name VARCHAR(100),
             FOREIGN KEY (user_name) REFERENCES user(user_name) ON DELETE CASCADE,
             year INT,
-            status VARCHAR(255),
-            total_income DECIMAL(10, 2),
-            income_tax DECIMAL(10, 2)
+            status VARCHAR(10),
+            total_income FLOAT(10, 2),
+            adjusted_total_income FLOAT(10,2),
+            income_tax FLOAT(10, 2)
         )
         """
 

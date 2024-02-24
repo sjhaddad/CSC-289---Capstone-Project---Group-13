@@ -1,4 +1,5 @@
 from account import Account
+from tax_record import TaxRecord
 from constants import *
 from input_validator import *
 import bcrypt
@@ -41,7 +42,7 @@ class Interface:
                 print("Access denied. Please try again.")
         return account
 
-    # Displays the interface for a signed in user of non-admin account
+    # Displays the interface for a signed-in user of non-admin account
     def display_user_interface(self):
         print("\nWelcome to Shuttle Cash!")
         print("1) Display all user information")
@@ -51,7 +52,7 @@ class Interface:
         choice = input("Please enter your choice: ")
         return choice
 
-    # Handles functionality for the interface for a signed in user of non-admin account
+    # Handles functionality for the interface for a signed-in user of non-admin account
     def manage_user_interface(self, account, user_table_manager, tax_table_manager):
         choice = 0
         while choice != 4:
@@ -95,18 +96,9 @@ class Interface:
                     year = validate_year(account.get_user_name())
                     status = validate_status()
                     total_income = validate_total_income()
+                    new_record = TaxRecord(account.get_user_name(), year, status, total_income)
 
-                    if status == 'M' and total_income > 22500:
-                        adjusted_income = total_income - MARRIED_DEDUCTIBLE
-                        income_tax = adjusted_income * INCOME_TAX
-                    elif status == 'S' and total_income > 12750:
-                        adjusted_income = total_income - SINGLE_DEDUCTIBLE
-                        income_tax = adjusted_income * INCOME_TAX
-                    else:
-                        adjusted_income = total_income
-                        income_tax = 0
-
-                    tax_table_manager.add_tax_info(account.user_name, year, status, adjusted_income, income_tax)
+                    tax_table_manager.add_tax_info(new_record)
                 # 4) Exit
                 case "4":
                     break
@@ -114,7 +106,7 @@ class Interface:
                 case _:
                     print("\nCHOICE NOT IN SELECTION")
 
-    # Displays the interface for a signed in user of admin type
+    # Displays the interface for a signed-in user of admin type
     def display_admin_interface(self):
         print("\nWelcome to Shuttle Cash!")
         print("ADMIN OPTIONS")
@@ -127,7 +119,7 @@ class Interface:
 
         return choice
 
-    # Handles the functionality for the interface for a signed in user of admin type
+    # Handles the functionality for the interface for a signed-in user of admin type
     def manage_admin_interface(self, user_table_manager, tax_table_manager):
         choice = 0
         while choice != "5":
@@ -137,7 +129,7 @@ class Interface:
                 case "1":
                     user_table_manager.display_table()
                     tax_table_manager.display_table()
-                # 2) Display user information by user name
+                # 2) Display user information by username
                 case "2":
                     user_name = validate_user_name()
                     if user_table_manager.get_account_by_user_name(user_name):

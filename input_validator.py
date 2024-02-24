@@ -1,9 +1,10 @@
 from datetime import datetime
 from tax_table_manager import Tax_table_manager
-import bcrypt
+
 tax_table_manager = Tax_table_manager("database-2.cvi44qi26x3h.us-east-2.rds.amazonaws.com", "admin",
-                                           "mypassword",
-                                           database="test_encryption")
+                                      "mypassword",
+                                      database="new_tax_table")
+
 
 def validate_user_name():
     while True:

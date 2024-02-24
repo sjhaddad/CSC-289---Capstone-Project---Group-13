@@ -1,5 +1,6 @@
 from constants import *
 
+
 class Account:
 
     def __init__(self, user_name, password, email, first_name, last_name):
@@ -8,7 +9,10 @@ class Account:
         self.email = email
         self.first_name = first_name
         self.last_name = last_name
-    
+
+
+
+
     # Getter methods
     def get_user_name(self):
         return self.user_name
@@ -43,5 +47,5 @@ class Account:
 
     # Other methods
     def display_user_info(self):
-        print( f'\nUser Name: {self.get_user_name()}\n' 
-               f'Email: {self.get_email()}\nFirst Name: {self.get_first_name()}\nLast Name: {self.get_last_name()}\n')
+        print(f'\nUser Name: {self.get_user_name()}\n'
+              f'Email: {self.get_email()}\nFirst Name: {self.get_first_name()}\nLast Name: {self.get_last_name()}\n')
