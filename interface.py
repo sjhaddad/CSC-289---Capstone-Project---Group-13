@@ -79,7 +79,7 @@ class Interface:
                             hashed_password = bcrypt.hashpw(validate_password().encode('utf-8'), bcrypt.gensalt())
                             account.set_password(hashed_password)
                         elif choice == "2":
-                            account.set_email(validate_email(account.get_user_name()))
+                            account.set_email(validate_email())
                         elif choice == "3":
 
                             account.set_first_name(validate_first_name())

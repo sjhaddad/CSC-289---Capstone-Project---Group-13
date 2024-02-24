@@ -36,7 +36,7 @@ def validate_email():
 
 def validate_first_name():
     while True:
-        first_name = input("Enter User Name: ")
+        first_name = input("Enter first name: ")
         if first_name:
             return first_name
         else:
@@ -45,7 +45,7 @@ def validate_first_name():
 
 def validate_last_name():
     while True:
-        user_name = input("Enter User Name: ")
+        user_name = input("Enter last name: ")
         if user_name:
             return user_name
         else:
