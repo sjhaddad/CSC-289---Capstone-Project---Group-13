@@ -123,7 +123,7 @@ class Tax_table_manager:
         CREATE TABLE tax (
             tax_id INT AUTO_INCREMENT PRIMARY KEY,
             user_name VARCHAR(255),
-            FOREIGN KEY (user_name) REFERENCES user(user_name),
+            FOREIGN KEY (user_name) REFERENCES user(user_name) ON DELETE CASCADE,
             year INT,
             status VARCHAR(255),
             total_income DECIMAL(10, 2),

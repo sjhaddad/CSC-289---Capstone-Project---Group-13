@@ -47,7 +47,6 @@ class User_table_manager:
         mycursor = db.cursor()
         user_name = new_user.user_name
         password = new_user.password
-        print(type(password))
         email = new_user.email
         first_name = new_user.first_name
         last_name = new_user.last_name

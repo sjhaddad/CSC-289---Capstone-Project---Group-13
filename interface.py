@@ -75,7 +75,8 @@ class Interface:
                         choice = input("Enter your choice: \n")
 
                         if choice == "1":
-                            account.set_password(validate_password())
+                            hashed_password = bcrypt.hashpw(validate_password().encode('utf-8'), bcrypt.gensalt())
+                            account.set_password(hashed_password)
                         elif choice == "2":
                             account.set_email(validate_email(account.get_user_name()))
                         elif choice == "3":
