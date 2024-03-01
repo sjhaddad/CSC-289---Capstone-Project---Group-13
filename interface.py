@@ -3,6 +3,8 @@ from user_table_manager import User_table_manager
 from tax_table_manager import Tax_table_manager
 from tax_record import TaxRecord
 import customtkinter as ctk
+import tkinter as tk
+from tkinter import ttk
 from constants import *
 from input_validator import *
 import bcrypt
@@ -80,15 +82,15 @@ class Interface:
         label.pack(pady=12, padx=10)
 
         # 1) Display all user information
-        button = ctk.CTkButton(master=frame, text="Display all user information", command=lambda: self.display_user_info(account))
+        button = ctk.CTkButton(master=frame, text="Display all user information", command=lambda: self.user_display(account))
         button.pack(pady=12, padx=10)
 
         # 2) Edit user profile
-        button = ctk.CTkButton(master=frame, text="Edit user profile", command=lambda: self.edit_profile(account))
+        button = ctk.CTkButton(master=frame, text="Edit user profile", command=lambda: self.user_edit_profile(account))
         button.pack(pady=12, padx=10)
 
         # 3) Generate income tax estimate
-        button = ctk.CTkButton(master=frame, text="Generate income tax estimate", command=lambda: self.generate_estimate(account))
+        button = ctk.CTkButton(master=frame, text="Generate income tax estimate", command=lambda: self.user_generate_estimate(account))
         button.pack(pady=12, padx=10)
 
         # 4) Exit
@@ -98,7 +100,7 @@ class Interface:
         self.root.mainloop()
 
     # 1) Display all user information
-    def display_user_info(self, account):
+    def user_display(self, account):
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("green")
 
@@ -109,8 +111,21 @@ class Interface:
         label = ctk.CTkLabel(master=frame, text="User Info")
         label.pack(pady=12, padx=10)
 
-        # Fill this in with displayed user info
+        user_table_dict = self.user_table_manager.get_user_dict()
 
+        tree = ttk.Treeview(self.root)
+        tree['columns'] = ("Username", "Password", "Email", "First Name", "Last Name")
+        tree.heading('#0', text='Username')
+        tree.heading('Email', text='Email')
+        tree.heading('Password', text='Password')
+        tree.heading('First Name', text='First Name')
+        tree.heading('Last Name', text='Last Name')
+
+        for username, acc in user_table_dict.items():
+            if username == account.user_name:
+                tree.insert('', 'end', text=username, values=(acc.user_name, acc.password, acc.email, acc.first_name, acc.last_name))
+
+        tree.pack(expand=True, fill='both')
 
         button = ctk.CTkButton(master=frame, text="Return", command=lambda: self.user_screen(account))
         button.pack(pady=12, padx=10)
@@ -118,7 +133,7 @@ class Interface:
         self.root.mainloop()
 
     # 2) Edit user profile
-    def edit_profile(self, account):
+    def user_edit_profile(self, account):
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("green")
 
@@ -138,7 +153,7 @@ class Interface:
         self.root.mainloop()
 
     # 3) Generate income tax estimate
-    def generate_estimate(self, account):
+    def user_generate_estimate(self, account):
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("green")
 
@@ -173,19 +188,19 @@ class Interface:
         label.pack(pady=12, padx=10)
 
         # 1) Display all user data
-        button = ctk.CTkButton(master=frame, text="Display all user data", command=lambda: self.display_user_data(account))
+        button = ctk.CTkButton(master=frame, text="Display all user data", command=lambda: self.admin_display(account))
         button.pack(pady=12, padx=10)
 
         # 2) Display user information by username
-        button = ctk.CTkButton(master=frame, text="Edit user profile", command=lambda: self.display_user_by_name(account))
+        button = ctk.CTkButton(master=frame, text="Edit user profile", command=lambda: self.admin_display_by_name(account))
         button.pack(pady=12, padx=10)
 
         # 3) Delete user by user name
-        button = ctk.CTkButton(master=frame, text="Generate income tax estimate", command=lambda: self.delete_user(account))
+        button = ctk.CTkButton(master=frame, text="Generate income tax estimate", command=lambda: self.admin_delete_user(account))
         button.pack(pady=12, padx=10)
 
         # 4) Display tax table
-        button = ctk.CTkButton(master=frame, text="Display tax table", command=lambda: self.display_tax_table(account))
+        button = ctk.CTkButton(master=frame, text="Display tax table", command=lambda: self.admin_display_tax_table(account))
         button.pack(pady=12, padx=10)
 
         # 5) Exit
@@ -195,7 +210,7 @@ class Interface:
         self.root.mainloop()
 
     # 1) Display all user data
-    def display_user_data(self, account):
+    def admin_display(self, account):
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("green")
 
@@ -206,16 +221,48 @@ class Interface:
         label = ctk.CTkLabel(master=frame, text="User Info")
         label.pack(pady=12, padx=10)
 
-        # Fill this in with displayed user info
+        # Get dicts of user and tax tables
+        user_table_dict = self.user_table_manager.get_user_dict()
+        tax_table_dict = self.tax_table_manager.get_tax_dict()
+
+        # Create the user table and assign headers
+        user_tree = ttk.Treeview(frame)
+        user_tree['columns'] = ("Username", "Password", "Email", "First Name", "Last Name")
+        user_tree.heading('#0', text='Username')
+        user_tree.heading('Email', text='Email')
+        user_tree.heading('Password', text='Password')
+        user_tree.heading('First Name', text='First Name')
+        user_tree.heading('Last Name', text='Last Name')
+
+        # Fill each cell in the user table
+        for username, acc in user_table_dict.items():
+            user_tree.insert('', 'end', text=username, values=(acc.user_name, acc.password, acc.email, acc.first_name, acc.last_name))
+        user_tree.pack(side='left', expand=True, fill='both')
+
+        # Create the tax table and assign headers
+        tax_tree = ttk.Treeview(frame)
+        tax_tree['columns'] = ("Username", "Year", "Status", "Total Income", "Adjusted Total Income", "Income Tax")
+        tax_tree.heading('#0', text='Username')
+        tax_tree.heading('Year', text='Year')
+        tax_tree.heading('Status', text='Status')
+        tax_tree.heading('Total Income', text='Total Income')
+        tax_tree.heading('Adjusted Total Income', text='Adjusted Total Income')
+        tax_tree.heading('Income Tax', text='Income Tax')
+
+        account_records = tax_table_manager.get_tax_records(account.get_user_name())
+        for username, record in tax_table_dict.items():
+            tax_tree.insert('', 'end', text=username, values=(record.user_name, record.year, record.status, record.total_income, record.adjusted_total_income, record.income_tax))
+        tax_tree.pack(side='right', expand=True, fill='both')
 
 
-        button = ctk.CTkButton(master=frame, text="Return", command=lambda: self.admin_screen(account))
+        button = ctk.CTkButton(master=frame, text="Return", command=lambda: self.user_screen(account))
         button.pack(pady=12, padx=10)
+
 
         self.root.mainloop()
 
     # 2) Display user information by username
-    def display_user_by_name(self, account):
+    def admin_display_by_name(self, account):
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("green")
 
@@ -235,7 +282,7 @@ class Interface:
         self.root.mainloop()
 
     # 3) Delete user by user name
-    def delete_user(self, account):
+    def admin_delete_user(self, account):
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("green")
 
@@ -255,7 +302,7 @@ class Interface:
         self.root.mainloop()
 
     # 4) Display tax table
-    def display_tax_table(self, account):
+    def admin_display_tax_table(self, account):
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("green")
 
