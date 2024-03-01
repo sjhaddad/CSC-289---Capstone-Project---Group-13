@@ -9,10 +9,10 @@ class TaxRecord:
         self.year = year
         self.total_income = total_income
 
-        if status == 'M' and self.total_income > 22500:
+        if status == 'married' and self.total_income > 22500:
             self.adjusted_total_income = self.total_income - MARRIED_DEDUCTIBLE
             self.income_tax =  self.adjusted_total_income * INCOME_TAX
-        elif status == 'S' and self.total_income > 12750:
+        elif status == 'single' and self.total_income > 12750:
             self.adjusted_total_income = self.total_income - SINGLE_DEDUCTIBLE
             self.income_tax =  self.adjusted_total_income * INCOME_TAX
         else:

@@ -3,12 +3,12 @@ from tax_table_manager import Tax_table_manager
 from interface import Interface
 from constants import *
 
-user_table_manager = User_table_manager("database-2.cvi44qi26x3h.us-east-2.rds.amazonaws.com", "admin",
-                                             "mypassword",
-                                             database="new_tax_table")
-tax_table_manager = Tax_table_manager("database-2.cvi44qi26x3h.us-east-2.rds.amazonaws.com", "admin",
-                                           "mypassword",
-                                           database="new_tax_table")
+user_table_manager = User_table_manager("database-2.cl6g04m6q6id.us-east-1.rds.amazonaws.com", "admin",
+                                        "password",
+                                        database="tax_program")
+tax_table_manager = Tax_table_manager("database-2.cl6g04m6q6id.us-east-1.rds.amazonaws.com", "admin",
+                                        "password",
+                                        database="tax_program")
 
 # Instantiate interface object
 interface = Interface()

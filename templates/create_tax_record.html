@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Calculator</title>
+</head>
+<body>
+    <h2>Tax Calculator</h2>
+    <form action="/calculate_tax" method="post">
+        <label for="year">Year:</label><br>
+        <input type="text" id="year" name="year" required><br><br>
+
+        <label for="status">Marital Status:</label><br>
+        <select id="status" name="status" required>
+            <option value="single">Single</option>
+            <option value="married">Married</option>
+        </select><br><br>
+
+        <label for="income">Total Annual Income:</label><br>
+        <input type="number" id="income" name="income" required><br><br>
+
+        <input type="submit" value="Calculate Tax">
+    </form>
+</body>
+</html>
