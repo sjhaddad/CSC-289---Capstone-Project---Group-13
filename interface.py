@@ -12,12 +12,12 @@ import bcrypt
 
 class Interface:
     def __init__(self):
-        self.user_table_manager = User_table_manager("database-2.cvi44qi26x3h.us-east-2.rds.amazonaws.com", "admin",
-                                             "mypassword",
-                                             database="new_tax_table")
-        self.tax_table_manager = Tax_table_manager("database-2.cvi44qi26x3h.us-east-2.rds.amazonaws.com", "admin",
-                                           "mypassword",
-                                           database="new_tax_table")
+        self.user_table_manager = User_table_manager("database-2.cl6g04m6q6id.us-east-1.rds.amazonaws.com", "admin",
+                                        "password",
+                                        database="tax_program")
+        self.tax_table_manager = Tax_table_manager("database-2.cl6g04m6q6id.us-east-1.rds.amazonaws.com", "admin",
+                                        "password",
+                                        database="tax_program")
         self.root = ctk.CTk()
         self.root.geometry("500x350")
         self.current_frame = None
