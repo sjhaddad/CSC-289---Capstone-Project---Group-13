@@ -2,18 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
     <title>Welcome to Shuttle Cash!</title>
 </head>
 <body>
-    <h1>Welcome to Shuttle Cash!</h1>
-    <form id="user_interface" action="{{ url_for('user_interface') }}" method="post">
-        <label for="action">Select an action:</label><br>
-        <select id="action" name="action" required>
-            <option value="display">Display all user information</option>
-            <option value="edit">Edit user profile</option>
-            <option value="generate">Generate income tax estimate</option>
-        </select><br><br>
-        <input type="submit" value="Submit">
-    </form>
+    <div class="centered-container">
+        <h1 class="banner">Welcome to Shuttle Cash!</h1>
+        <form method="POST">
+            <fieldset>
+                <label for="redirection">Select an action:</label><br>
+                <select name="redirection"required>
+                    <option value="display">Display all user information</option>
+                    <option value="edit">Edit user profile</option>
+                    <option value="generate">Generate income tax estimate</option>
+                </select><br><br>
+                <input type="submit" name="redirect_submit" value="Submit">
+            </fieldset>
+        </form>
+    </div>
 </body>
 </html>

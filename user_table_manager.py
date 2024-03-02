@@ -3,7 +3,6 @@ from account import Account
 
 
 class User_table_manager:
-
     def __init__(self, host, user, passwd, database):
         self.host = host
         self.user = user

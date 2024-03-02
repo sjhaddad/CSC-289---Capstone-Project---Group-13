@@ -31,8 +31,6 @@ body {
     padding: 10px;
     margin: auto;
     text-align: center;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Creates two equal columns */
     text-align: center;
 }
 
