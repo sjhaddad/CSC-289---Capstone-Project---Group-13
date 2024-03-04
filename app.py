@@ -133,16 +133,18 @@ def edit_account():
 def calculate_tax():
     if 'user_name' in session:  # Check if user_name is stored in the session
         user_name = session['user_name']  # Retrieve the user's name from the session
-        year = request.form['year']
-        status = request.form['status']
-        total_income = float(request.form['income'])
-        tax_record = TaxRecord(user_name, year, status, total_income)
-        # Perform tax calculation and update tax table here
-        tax_table_manager.add_tax_info(tax_record)
-        tax_record.display_tax_info()
-        return render_template('results.html', tax_record=tax_record)
-    else:
-        return redirect(url_for('index'))  # Redirect to login page if user is not logged in
+        if request.method == "POST":
+
+            year = request.form['year']
+            status = request.form['status']
+            total_income = float(request.form['income'])
+            tax_record = TaxRecord(user_name, year, status, total_income)
+            # Perform tax calculation and update tax table here
+            tax_table_manager.add_tax_info(tax_record)
+            tax_record.display_tax_info()
+            return render_template('results.html', tax_record=tax_record)
+        return render_template('calculate_tax.html')
+
 
 
 '''
