@@ -91,14 +91,16 @@ def user_interface():
     return render_template('user_interface.html', error_message=error_message)
 
 
-# User account information display page, showing the user their account information and any tax records if they exist **NEEDS TAX INFO ADDED**
+# User account information display page, showing the user their account information and any tax records if they exist **COMPLETED FOR TESTING**
 @app.route('/user_display', methods=["GET", "POST"])
 def user_display():
-    account = user_table_manager.get_account_by_user_name(session["user_name"])
-    return render_template('user_display.html', account=account)
+    user_name = session['user_name']
+    account = user_table_manager.get_account_by_user_name(user_name)
+    tax_records = tax_table_manager.get_tax_records(user_name)
+    return render_template('user_display.html', account=account, tax_records=tax_records)
 
 
-# User account information edit page, allowing the user to edit their account information
+# User account information edit page, allowing the user to edit their account information **COMPLETED FOR TESTING**
 @app.route('/edit_account', methods=["GET", "POST"])
 def edit_account():
     if request.method == "POST":
@@ -128,7 +130,7 @@ def edit_account():
     return render_template('edit_account.html')
 
 
-# User tax record creation page, allowing user to generate their tax estimate
+# User tax record creation page, allowing user to generate their tax estimate **COMPLETED FOR TESTING**
 @app.route('/calculate_tax', methods=["GET", "POST"])
 def calculate_tax():
     if 'user_name' in session:  # Check if user_name is stored in the session
@@ -140,9 +142,15 @@ def calculate_tax():
             total_income = float(request.form['income'])
             tax_record = TaxRecord(user_name, year, status, total_income)
             # Perform tax calculation and update tax table here
-            tax_table_manager.add_tax_info(tax_record)
-            tax_record.display_tax_info()
-            return render_template('results.html', tax_record=tax_record)
+
+            if tax_table_manager.is_year_unique(user_name, year):
+                tax_table_manager.add_tax_info(tax_record)
+                return render_template('results.html', tax_record=tax_record)
+            else:
+                error_message = "Tax record already exists for this year."
+                return render_template('calculate_tax.html', error_message=error_message)
+
+
         return render_template('calculate_tax.html')
 
 
@@ -153,4 +161,5 @@ def calculate_tax():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    user_table_manager.display_table()
+    #user_table_manager.display_table()
+    #tax_table_manager.display_table()

@@ -46,5 +46,6 @@ mycursor = db.cursor()
 # # Print the list of databases
 # for database in databases:
 #     print(database)
-user_table_manager.create_user_table()
-tax_table_manager.create_tax_table()
+#user_table_manager.create_user_table()
+# tax_table_manager.create_tax_table()
+#user_table_manager.delete_user('snp')

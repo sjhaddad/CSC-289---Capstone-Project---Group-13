@@ -5,6 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
     <title>User Information</title>
+    <style>
+        .year-header {
+            cursor: pointer;
+        }
+        .tax-records {
+            display: none;
+        }
+    </style>
+    <script>
+        function toggleTaxRecords(year) {
+            var taxRecords = document.getElementById("tax-records-" + year);
+            if (taxRecords.style.display === "none") {
+                taxRecords.style.display = "block";
+            } else {
+                taxRecords.style.display = "none";
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="centered-container">
@@ -13,6 +31,26 @@
         <p><strong>Email:</strong>  {{ account.get_email() }}</p>
         <p><strong>First Name:</strong>  {{ account.get_first_name() }}</p>
         <p><strong>Last Name:</strong>  {{ account.get_last_name() }}</p>
+
+        <h2 class="banner">Tax Records</h2>
+       <ul>
+    {% for tax_record in tax_records %}
+    <li>
+        <span class="year-header" onclick="toggleTaxRecords('{{ tax_record.get_year() }}')">
+            Year: {{ tax_record.get_year() }}
+        </span>
+        <ul id="tax-records-{{ tax_record.get_year() }}" class="tax-records">
+
+            <li>
+                Total Income: {{ tax_record.get_total_income() }} Income Tax: {{ tax_record.get_income_tax() }}
+            </li>
+
+        </ul>
+    </li>
+
+    {% endfor %}
+</ul>
+
     </div>
 </body>
 </html>
