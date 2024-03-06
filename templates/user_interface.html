@@ -19,6 +19,11 @@
                 </select><br><br>
                 <input type="submit" name="redirect_submit" value="Submit">
             </fieldset>
+            {% if message == "" %}
+                    <p></p>
+                {% else %}
+                    <p>{{ message }}</p>
+                {% endif %}
         </form>
     </div>
 </body>

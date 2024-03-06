@@ -79,7 +79,11 @@ def create_account():
 # User interface page, presenting end user with option to display their information, edit their information, or generate their tax estimate **COMPLETED FOR TESTING**
 @app.route('/user_interface', methods=["GET", "POST"])
 def user_interface():
-    error_message = ""
+
+    message = request.args.get('message')
+    if message is None:
+        message = ""
+    # Get the message from the query parameters
     if request.method == "POST":
         if "redirect_submit" in request.form:
             redirection = request.form["redirection"]
@@ -93,7 +97,7 @@ def user_interface():
                 # Handle invalid action (optional)
                 error_message = 'Invalid action'
 
-    return render_template('user_interface.html', error_message=error_message)
+    return render_template('user_interface.html',  message=message)
 
 
 # User account information display page, showing the user their account information and any tax records if they exist **COMPLETED FOR TESTING**
@@ -132,6 +136,8 @@ def edit_account():
             if any(field in request.form and request.form[field].strip() for field in
                 ['email', 'first_name', 'last_name', 'password']):
                 user_table_manager.update_user(account)
+                message = "Account updated."
+                return redirect(url_for('user_interface', message=message))
 
         elif "return_home" in request.form:     #### BRYAN ADDED: Form providing button to return to home nav page
             return redirect(url_for('user_interface'))
