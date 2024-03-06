@@ -3,28 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
     <title>Tax Calculator</title>
-
 </head>
 <body>
-    <h2>Tax Calculator</h2>
-     {% if error_message %}
-        <p style="color: red;">{{ error_message }}</p>
-    {% endif %}
-    <form action="/calculate_tax" method="post">
-        <label for="year">Year:</label><br>
-        <input type="text" id="year" name="year" required><br><br>
+    <div class="centered-container">
+        <h2 class="banner">Tax Calculator</h2>
+        {% if error_message %}
+            <p style="color: red;">{{ error_message }}</p>
+        {% endif %}
+        <form action="/calculate_tax" method="post">
+            <label for="year">Year:</label><br>
+            <input type="text" id="year" name="year" required><br><br>
 
-        <label for="status">Marital Status:</label><br>
-        <select id="status" name="status" required>
-            <option value="single">Single</option>
-            <option value="married">Married</option>
-        </select><br><br>
+            <label for="status">Marital Status:</label><br>
+            <select id="status" name="status" required>
+                <option value="single">Single</option>
+                <option value="married">Married</option>
+            </select><br><br>
 
-        <label for="income">Total Annual Income:</label><br>
-        <input type="number" id="income" name="income" required><br><br>
+            <label for="income">Total Annual Income:</label><br>
+            <input type="number" id="income" name="income" required><br><br>
 
-        <input type="submit" value="Calculate Tax">
-    </form>
+            <input type="submit" name="calculate_submit" value="Calculate Tax"><br><br>
+        </form>
+        <form method="POST">
+            <fieldset>
+                <label for="return_home">Return Home:</label>
+                <input type="submit" name="return_home" value="Home" />
+            </fieldset>
+            <br>
+        </form>
+    </div>
 </body>
 </html>

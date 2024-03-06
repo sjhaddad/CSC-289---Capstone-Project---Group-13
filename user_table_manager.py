@@ -36,20 +36,12 @@ class User_table_manager:
         # Commit the transaction
         self.db.commit()
 
-        # Close the cursor and database connection
-        self.mycursor.close()
-        self.db.close()
-
     def drop_user_table(self):
         # Execute the SQL statement to create the table
         self.mycursor.execute("DROP TABLE user")
 
         # Commit the transaction
         self.db.commit()
-
-        # Close the cursor and database connection
-        self.mycursor.close()
-        self.db.close()
 
     '''
     TABLE EDITING FUNCTIONS
@@ -156,16 +148,17 @@ class User_table_manager:
 
             return Account(user_name, password, email, first_name, last_name)
 
-    def get_all_users(self):
-        sql = "SELECT * FROM user"
-        
-        self.mycursor.execute(sql)
-
+    def get_user_dict(self):
+        user_data_dict = {}
+        self.mycursor.execute("SELECT * FROM user")
         rows = self.mycursor.fetchall()
-        user_list = []
-        
+
         for row in rows:
             user_name, password, email, firstname, lastname = row
             password_hex = password.hex()
             password_hex_shortened = password_hex[:30]
+            user = Account(user_name, password_hex_shortened, email, firstname, lastname)
+            user_data_dict[user_name] = user
+
+        return user_data_dict
 

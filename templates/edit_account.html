@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
     <title>Edit Profile</title>
 </head>
 <body>
@@ -20,7 +21,14 @@
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password" ><br>
 
-        <input type="submit" value="Update">
+        <input type="submit" name ="edit_submit" value="Update">
+    </form>
+    <form method="POST">
+        <fieldset>
+            <label for="return_home">Return Home:</label>
+            <input type="submit" name="return_home" value="Home" />
+        </fieldset>
+        <br>
     </form>
 </body>
 </html>

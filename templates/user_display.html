@@ -25,24 +25,27 @@
         <p><strong>Last Name:</strong>  {{ account.get_last_name() }}</p>
 
         <h2 class="banner">Tax Records</h2>
-       <ul>
-    {% for tax_record in tax_records %}
-    <li>
-        <span class="year-header" onclick="toggleTaxRecords('{{ tax_record.get_year() }}')">
-            Year: {{ tax_record.get_year() }}
-        </span>
-        <ul id="tax-records-{{ tax_record.get_year() }}" class="tax-records">
-
+        <ul>
+            {% for tax_record in tax_records %}
             <li>
-                Total Income: {{ tax_record.get_total_income() }} Income Tax: {{ tax_record.get_income_tax() }}
+                <span class="year-header" onclick="toggleTaxRecords('{{ tax_record.get_year() }}')">
+                    Year: {{ tax_record.get_year() }}
+                </span>
+                <ul id="tax-records-{{ tax_record.get_year() }}" class="tax-records">
+                    <li>
+                        Total Income: {{ tax_record.get_total_income() }} Income Tax: {{ tax_record.get_income_tax() }}
+                    </li>
+                </ul>
             </li>
-
+            {% endfor %}
         </ul>
-    </li>
-
-    {% endfor %}
-</ul>
-
+        <form method="POST">
+            <fieldset>
+                <label for="return_home">Return Home:</label>
+                <input type="submit" name="return_home" value="Home" />
+            </fieldset>
+            <br>
+        </form>
     </div>
 </body>
 </html>
