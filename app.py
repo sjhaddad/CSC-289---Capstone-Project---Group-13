@@ -158,6 +158,29 @@ def calculate_tax():
 '''
 ** ADMIN MODE PAGES **
 '''
+@app.route('/admin_home', methods=["GET", "POST"])
+def admin_home():
+    error_message = ""
+    if request.method == "POST":
+        if "redirect_submit" in request.form:
+            redirection = request.form["redirection"]
+            if redirection == "all_users":
+                return redirect(url_for("all_users_display"))
+            elif redirection == "by_name":
+                return redirect(url_for('user_by_name'))
+            elif redirection == "delete_user":
+                return redirect(url_for('delete_user'))
+            elif redirection == "display_tax":
+                return redirect(url_for('display_tax'))
+            else:
+                # Handle invalid action (optional)
+                error_message = 'Invalid action'
+
+    return render_template('admin_home.html', error_message=error_message)
+
+@app.route('/all_users_display', methods=["GET", "POST"])
+def all_users_display():
+    return render_template('all_users_display.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

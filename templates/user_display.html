@@ -5,14 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
     <title>User Information</title>
-    <style>
-        .year-header {
-            cursor: pointer;
-        }
-        .tax-records {
-            display: none;
-        }
-    </style>
     <script>
         function toggleTaxRecords(year) {
             var taxRecords = document.getElementById("tax-records-" + year);
