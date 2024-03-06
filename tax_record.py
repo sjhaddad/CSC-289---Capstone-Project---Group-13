@@ -5,8 +5,8 @@ class TaxRecord:
 
     def __init__(self, user_name, year, status, total_income):
         self.user_name = user_name
-        self.status = status
         self.year = year
+        self.status = status
         self.total_income = total_income
 
         if status == 'married' and self.total_income > 22500:

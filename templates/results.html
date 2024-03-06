@@ -1,14 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
     <title>Tax Calculation Results</title>
 </head>
 <body>
-    <h1>Tax Calculation Results</h1>
-    <p>Estimated income tax: {{ tax_record.get_income_tax() }}</p>
-    <p>Year: {{ tax_record.get_year() }}</p>
-    <p>Status: {{ tax_record.get_status() }}</p>
-    <p>Total income: {{ tax_record.get_total_income() }}</p>
-    <p>Adjusted income: {{ tax_record.get_adjusted_total_income() }}</p>
+    <div class="centered-container">
+        <h1 class="banner">Tax Calculation Results</h1>
+        <p>Estimated income tax: {{ tax_record.get_income_tax() }}</p>
+        <p>Year: {{ tax_record.get_year() }}</p>
+        <p>Status: {{ tax_record.get_status() }}</p>
+        <p>Total income: {{ tax_record.get_total_income() }}</p>
+        <p>Adjusted income: {{ tax_record.get_adjusted_total_income() }}</p>
+        <form method="POST">
+            <fieldset>
+                <label for="return_home">Return Home:</label>
+                <input type="submit" name="return_home" value="Home" />
+            </fieldset>
+            <br>
+        </form>
+    </div>
 </body>
 </html>
