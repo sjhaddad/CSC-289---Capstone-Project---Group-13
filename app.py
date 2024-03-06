@@ -19,6 +19,7 @@ tax_table_manager = Tax_table_manager("database-2.cl6g04m6q6id.us-east-1.rds.ama
 # Landing page, prompting user to login or create an account **COMPLETED FOR TESTING**
 @app.route('/', methods=["GET", "POST"])
 def index():
+    session.clear()
     error_message = ""
     if request.method == "POST":
         # User chooses to log in
@@ -79,6 +80,8 @@ def create_account():
 # User interface page, presenting end user with option to display their information, edit their information, or generate their tax estimate **COMPLETED FOR TESTING**
 @app.route('/user_interface', methods=["GET", "POST"])
 def user_interface():
+    if not session:
+        return redirect(url_for('index'))
 
     message = request.args.get('message')
     if message is None:
@@ -96,6 +99,8 @@ def user_interface():
             else:
                 # Handle invalid action (optional)
                 error_message = 'Invalid action'
+        if "logout" in request.form:
+            return redirect(url_for('index'))
 
     return render_template('user_interface.html',  message=message)
 
@@ -188,6 +193,9 @@ def results():
 # Admin home page, with navigation options to all admin functionalities
 @app.route('/admin_home', methods=["GET", "POST"])
 def admin_home():
+    if not session or session['user_name'] != 'admin':
+        return redirect(url_for('index'))
+
     error_message = ""
     if request.method == "POST":
         if "redirect_submit" in request.form:
@@ -201,6 +209,8 @@ def admin_home():
             else:
                 # Handle invalid action (optional)
                 error_message = 'Invalid action'
+        if "logout" in request.form:
+            return redirect(url_for('index'))
 
     return render_template('admin_home.html', error_message=error_message)
 

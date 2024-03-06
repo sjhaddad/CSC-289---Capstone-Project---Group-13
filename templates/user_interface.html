@@ -12,7 +12,7 @@
         <form method="POST">
             <fieldset>
                 <label for="redirection">Select an action:</label><br>
-                <select name="redirection"required>
+                <select name="redirection" required>
                     <option value="display">Display all user information</option>
                     <option value="edit">Edit user profile</option>
                     <option value="generate">Generate income tax estimate</option>
@@ -20,10 +20,13 @@
                 <input type="submit" name="redirect_submit" value="Submit">
             </fieldset>
             {% if message == "" %}
-                    <p></p>
-                {% else %}
-                    <p>{{ message }}</p>
-                {% endif %}
+                <p></p>
+            {% else %}
+                <p>{{ message }}</p>
+            {% endif %}
+        </form>
+        <form method="POST">
+            <input type="submit"  name = "logout" value="Logout">
         </form>
     </div>
 </body>
