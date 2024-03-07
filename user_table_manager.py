@@ -162,3 +162,19 @@ class User_table_manager:
 
         return user_data_dict
 
+    def get_account_by_email(self, email):
+        # Define the SQL statement to retrieve user credentials
+        sql = "SELECT * FROM user WHERE email = %s"
+        val = (email,)
+
+        # Execute the SQL statement
+        self.mycursor.execute(sql, val)
+
+        # Fetch the result2
+        result = self.mycursor.fetchone()
+        if result:
+            user_name, password, email, first_name, last_name = result
+            password = bytes(password)
+
+            return Account(user_name, password, email, first_name, last_name)
+

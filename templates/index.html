@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <style>
+        .forgot-password {
+            display: block; /* Display the link as a block-level element */
+            margin-top: 10px; /* Add some top margin to separate it from the password input */
+        }
+    </style>
 </head>
 <body>
     <div class="centered-container">
@@ -14,7 +20,9 @@
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username"><br><br>
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password"><br><br>
+                <input type="password" id="password" name="password">
+                <a href="{{ url_for('request_password_reset') }}" class="forgot-password">Forgot Password?</a> <!-- Link to forgot password page -->
+                <br><br>
                 <input type="submit" name="login_button" value="Login">
                 <input type="submit" name="create_button" value="Create New Account">
                 {% if error_message == "" %}

@@ -12,13 +12,14 @@
         <form method="POST">
             <fieldset>
                 <label for="redirection">Select an action:</label><br>
-                <select name="redirection" required>
+                <select name="redirection" id="redirection" required>
                     <option value="display">Display all user information</option>
                     <option value="edit">Edit user profile</option>
                     <option value="generate">Generate income tax estimate</option>
                 </select><br><br>
                 <input type="submit" name="redirect_submit" value="Submit">
             </fieldset>
+
             {% if message == "" %}
                 <p></p>
             {% else %}
