@@ -296,7 +296,7 @@ def password_reset_link():
             return redirect(url_for('index'))
         else:
             error_message = "Error: New password and confirm password do not match. Please try again."
-            return render_template('password_reset_link.html', error_message=error_message)
+            return render_template('password_reset_link.html', account=account, error_message=error_message)
 
     return render_template('password_reset_link.html', account=account)
 
