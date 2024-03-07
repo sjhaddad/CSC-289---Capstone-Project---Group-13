@@ -1,6 +1,8 @@
 body {
     font-size:12pt;
     font-family:verdana;
+    margin: 0;
+    padding: 0;
 }
 
 .border {
@@ -11,7 +13,10 @@ body {
     color: white;
     text-align: center;
     background-color: black;
-    padding: 5px;
+    padding: 20px;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .bold {
@@ -27,11 +32,11 @@ body {
 }
 
 .centered-container {
-    width: 50%;
+    width: 100%;
     padding: 10px;
     margin: auto;
     text-align: center;
-    text-align: center;
+    box-sizing: border-box;
 }
 
 .left-box {
