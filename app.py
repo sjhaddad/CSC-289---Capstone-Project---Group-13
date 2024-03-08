@@ -292,6 +292,7 @@ def password_reset_link():
             hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
 
             account.set_password(hashed_password)
+            user_table_manager.update_user(account)
             error_message = 'Password updated.'
             return redirect(url_for('index'))
         else:
