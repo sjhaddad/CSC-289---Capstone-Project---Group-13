@@ -5,6 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
     <title>Tax Calculator</title>
+    <script>
+        function validateForm() {
+            var year = document.getElementById("year").value;
+            var income = document.getElementById("income").value;
+
+            // Year Validation
+            if (isNaN(year) || year < 1900 || year > new Date().getFullYear()) {
+                alert("Please enter a valid year.");
+                return false;
+            }
+
+            // Income Validation
+            if (isNaN(income) || income < 0) {
+                alert("Please enter a valid income.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </head>
 <body>
     <div class="centered-container">
@@ -12,7 +32,7 @@
         {% if error_message %}
             <p style="color: red;">{{ error_message }}</p>
         {% endif %}
-        <form action="/calculate_tax" method="post">
+        <form action="/calculate_tax" method="post" onsubmit="return validateForm()">
             <label for="year">Year:</label><br>
             <input type="text" id="year" name="year" required><br><br>
 
