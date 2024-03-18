@@ -12,9 +12,9 @@
         <form method="POST">
             <fieldset>
                 <label for="delete_name">Delete User:</label>
-                <input type="text" id="delete_name" name="delete_name"><br><br>
+                <input type="text" id="delete_name" name="delete_name" class="text-box"><br><br>
                 <label for="delete_user">Delete:</label>
-                <input type="submit" name="delete_user" value="Delete" />
+                <input type="submit" name="delete_user" value="Delete" class="button"/>
             </fieldset>
             <br>
             {% if feedback_message == "" %}
@@ -25,10 +25,7 @@
         </form>
         <br>
         <form method="POST">
-            <fieldset>
-                <label for="return_home">Return Home:</label>
-                <input type="submit" name="return_home" value="Home" />
-            </fieldset>
+                <input type="submit" name="return_home" value="Return Home" class="button"/>
             <br>
         </form>
     </div>

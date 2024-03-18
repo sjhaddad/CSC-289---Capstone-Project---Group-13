@@ -1,32 +1,67 @@
 body {
     font-size:12pt;
-    font-family:verdana;
+    background-color: #0E0B16;
+    color: #A239CA;
+    font-family: verdana;
     margin: 0;
     padding: 0;
+    font-size: 1.3em;
+}
+
+select {
+    width: 500px;
+    height: 50px;
+    margin: 20px;
+    border-radius: 10px;
+    font-family: verdana;
+    font-size: 1.3em;
+    background-color: #E7DFDD;
+    color: #0E0B16;
+    border: none;
 }
 
 .border {
-    border: 5px black;
+    border: 5px #0E0B16;
 }
 
 .banner {
-    color: white;
+    color: #E7DFDD;
     text-align: center;
-    background-color: black;
+    background-color: #0E0B16;
     padding: 20px;
     margin: 0;
     width: 100%;
     box-sizing: border-box;
 }
 
+.button {
+    width: 500px;
+    height: 50px;
+    margin: 20px;
+    border-radius: 10px;
+    font-family: verdana;
+    font-size: 1.3em;
+    background-color: #4717F6;
+    color: #E7DFDD;
+    border: none;
+}
+
+.button:hover {
+    width: 500px;
+    height: 50px;
+    margin: 20px;
+    border-radius: 10px;
+    font-family: verdana;
+    font-size: 1.3em;
+    background-color: #2f109e;
+    color: #E7DFDD;
+    border: none;
+}
+
 .bold {
     font-weight: bold;
 }
 
-input, button{
-    padding: 2px;
-
-}
 .center {
     margin: auto;
     text-align: center;
@@ -59,16 +94,17 @@ input, button{
 }
 
 .table {
-    width: 100%;
-    border: 1px solid;
+    width: 75%;
+    border: none;
     border-spacing: 0;
     margin: 1rem;
-    background-color: #f5f5f5;
+    background-color: #4717F6;
+    color: #E7DFDD;
     text-align: left;
 }
 
 .table__row:nth-child(even) {
-    background-color: #e5e5e5;
+    background-color: #4014df;
 }
 
 .table__header {
@@ -81,6 +117,17 @@ input, button{
 
 .tax-records {
     display: none;
+}
+
+.text-box {
+    width: 500px;
+    height: 50px;
+    margin: 20px;
+    border-radius: 10px;
+    font-family: verdana;
+    font-size: 1.3em;
+    background-color: #E7DFDD;
+    color: #0E0B16;
 }
 
 .year-header {

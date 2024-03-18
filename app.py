@@ -299,7 +299,7 @@ Display user by username page, displaying information associated with a user tha
 Redirects to /admin_home if "Return Home" button is selected.
 '''
 @app.route('/user_by_username', methods=["GET", "POST"])
-def user_by_name():
+def user_by_username():
     # Check to ensure that page is being accessed by an admin user, redirect to login if not
     if not session or session.get('user_name') != 'admin':
         return redirect(url_for('index'))

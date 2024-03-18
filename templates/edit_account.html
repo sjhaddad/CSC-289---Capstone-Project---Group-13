@@ -7,28 +7,30 @@
     <title>Edit Profile</title>
 </head>
 <body>
-    <h1>Edit Profile</h1>
-    <form action="{{ url_for('edit_account') }}" method="post">
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" ><br>
-
-        <label for="first_name">First Name:</label><br>
-        <input type="text" id="first_name" name="first_name" ><br>
-
-        <label for="last_name">Last Name:</label><br>
-        <input type="text" id="last_name" name="last_name" ><br>
-
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" ><br>
-
-        <input type="submit" name ="edit_submit" value="Update">
-    </form>
-    <form method="POST">
-        <fieldset>
-            <label for="return_home">Return Home:</label>
-            <input type="submit" name="return_home" value="Home" />
-        </fieldset>
-        <br>
-    </form>
+    <div class="centered-container">
+        <h1 class="banner">Edit Profile</h1>
+        <form action="{{ url_for('edit_account') }}" method="post">
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" ><br>
+    
+            <label for="first_name">First Name:</label><br>
+            <input type="text" id="first_name" name="first_name" ><br>
+    
+            <label for="last_name">Last Name:</label><br>
+            <input type="text" id="last_name" name="last_name" ><br>
+    
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" ><br>
+    
+            <input type="submit" name ="edit_submit" value="Update">
+        </form>
+        <form method="POST">
+            <fieldset>
+                <label for="return_home">Return Home:</label>
+                <input type="submit" name="return_home" value="Home" />
+            </fieldset>
+            <br>
+        </form>
+    </div>
 </body>
 </html>

@@ -34,7 +34,7 @@
         {% endif %}
         <form action="/calculate_tax" method="post" onsubmit="return validateForm()">
             <label for="year">Year:</label><br>
-            <input type="text" id="year" name="year" required><br><br>
+            <input type="text" id="year" name="year" required class="text-box"><br><br>
 
             <label for="status">Marital Status:</label><br>
             <select id="status" name="status" required>
@@ -43,15 +43,12 @@
             </select><br><br>
 
             <label for="income">Total Annual Income:</label><br>
-            <input type="number" id="income" name="income" required><br><br>
+            <input type="number" id="income" name="income" required class="text-box"><br><br>
 
-            <input type="submit" name="calculate_submit" value="Calculate Tax"><br><br>
+            <input type="submit" name="calculate_submit" value="Calculate Tax" class="button"><br><br>
         </form>
         <form method="POST">
-            <fieldset>
-                <label for="return_home">Return Home:</label>
-                <input type="submit" name="return_home" value="Home" />
-            </fieldset>
+                <input type="submit" name="return_home" value="Return Home" class="button"/>
             <br>
         </form>
     </div>

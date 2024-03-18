@@ -16,21 +16,19 @@
     <div class="centered-container">
         <h1 class="banner">Login</h1>
         <form id="loginForm" method="POST">
-            <fieldset>
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username"><br><br>
+                <input type="text" id="username" name="username" class="text-box"><br><br>
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password">
+                <input type="password" id="password" name="password" class="text-box">
                 <a href="{{ url_for('request_password_reset') }}" class="forgot-password">Forgot Password?</a> <!-- Link to forgot password page -->
                 <br><br>
-                <input type="submit" name="login_button" value="Login">
-                <input type="submit" name="create_button" value="Create New Account">
+                <input type="submit" name="login_button" value="Login" class="button">
+                <input type="submit" name="create_button" value="Create New Account" class="button">
                 {% if error_message == "" %}
                     <p></p>
                 {% else %}
                     <p>{{ error_message }}</p>
                 {% endif %}
-            </fieldset>
         </form>
     </div>
 </body>

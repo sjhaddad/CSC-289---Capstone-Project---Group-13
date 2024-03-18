@@ -15,10 +15,7 @@
         <p>Total income: {{ tax_record.get_total_income() }}</p>
         <p>Adjusted income: {{ tax_record.get_adjusted_total_income() }}</p>
         <form method="POST">
-            <fieldset>
-                <label for="return_home">Return Home:</label>
-                <input type="submit" name="return_home" value="Home" />
-            </fieldset>
+                <input type="submit" name="return_home" value="Return Home" class="button"/>
             <br>
         </form>
     </div>
