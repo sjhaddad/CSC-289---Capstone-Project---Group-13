@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <title>Shuttle Admin</title>
+</head>
+<body>
+    <div class="centered-container">
+        <h1 class="banner">Delete User by Name</h1>
+        <form method="POST">
+            <fieldset>
+                <label for="delete_name">Delete User:</label>
+                <input type="text" id="delete_name" name="delete_name"><br><br>
+                <label for="delete_user">Delete:</label>
+                <input type="submit" name="delete_user" value="Delete" />
+            </fieldset>
+            <br>
+            {% if feedback_message == "" %}
+                <p></p>
+            {% else %}
+                <p>{{ feedback_message }}</p>
+            {% endif %}
+        </form>
+        <br>
+        <form method="POST">
+            <fieldset>
+                <label for="return_home">Return Home:</label>
+                <input type="submit" name="return_home" value="Home" />
+            </fieldset>
+            <br>
+        </form>
+    </div>
+</body>
+</html>

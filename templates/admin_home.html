@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <title>Shuttle Admin</title>
+</head>
+<body>
+    <div class="centered-container">
+        <h1 class="banner">Admin View</h1>
+
+        <form method="POST">
+            <fieldset>
+                <label for="redirection">Select an action:</label><br>
+                <select name="redirection" required>
+                    <option value="all_users">Display all user data</option>
+                    <option value="by_name">Display user information by user name</option>
+                    <option value="delete_user">Delete user by user name</option>
+                </select><br><br>
+                <input type="submit" name="redirect_submit" value="Submit">
+            </fieldset>
+        </form>
+
+        <!-- Logout Button -->
+        <form method="POST">
+            <input type="submit" name="logout" value="Logout">
+        </form>
+    </div>
+</body>
+</html>
