@@ -1,35 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
-    <style>
-        .forgot-password {
-            display: block; /* Display the link as a block-level element */
-            margin-top: 10px; /* Add some top margin to separate it from the password input */
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login_style.css') }}">
 </head>
 <body>
-    <div class="centered-container">
-        <h1 class="banner">Login</h1>
-        <form id="loginForm" method="POST">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" class="text-box"><br><br>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" class="text-box">
-                <a href="{{ url_for('request_password_reset') }}" class="forgot-password">Forgot Password?</a> <!-- Link to forgot password page -->
-                <br><br>
-                <input type="submit" name="login_button" value="Login" class="button">
-                <input type="submit" name="create_button" value="Create New Account" class="button">
-                {% if error_message == "" %}
-                    <p></p>
-                {% else %}
-                    <p>{{ error_message }}</p>
-                {% endif %}
-        </form>
-    </div>
+  <div class="full-screen-container">
+    <div class="login-container">
+      <h1 class="login-title">Welcome to ShuttleCash!</h1>
+      <form class="form" method="POST">
+        <div class="input-group success">
+          <label for="username">User name</label>
+          <input type="text" name="username" id="username">
+        </div>
+
+        <div class="input-group error">
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password">
+          {% if error_message != "" %}
+          <span class="msg">{{ error_message }}</span>
+          {% endif %}
+          <a href="/request_password_reset" class="register-link" id="password_reset">Forgot password?</a>
+        </div>
+        
+        <button type="submit" class="login-button" name="login-button">Login</button>
+        <p class="register-prompt">Not registered? <a href="/create_account" class="register-link" id="create_button">Create an account!</a></p>
+      </div>
+  </div>
 </body>
 </html>

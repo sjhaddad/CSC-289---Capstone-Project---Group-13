@@ -7,7 +7,6 @@ from tax_table_manager import Tax_table_manager
 from tax_record import TaxRecord
 from account import Account
 from flask_mail import Mail, Message
-
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'  # Set a secret key for session management
 
@@ -38,23 +37,26 @@ def index():
     session.clear()
     error_message = ""
     if request.method == "POST":
-        if "login_button" in request.form:
+        if "login-button" in request.form:
             user_name = request.form['username']
             password = request.form['password']
-            if not user_name.strip() or not password.strip():
-                error_message = "Username and password are required."
-            account = user_table_manager.get_account_by_user_name(user_name)
-            if account:
-                if bcrypt.checkpw(password.encode('utf-8'), account.get_password()) and user_name != "admin":
-                    session['user_name'] = user_name
-                    return redirect(url_for('user_interface'))
-                elif bcrypt.checkpw(password.encode('utf-8'), account.get_password()) and user_name == "admin":
-                    session['user_name'] = user_name
-                    return redirect(url_for('admin_home'))
+            print(user_name =="")
+            if user_name != "" and  password != "":
+                
+                account = user_table_manager.get_account_by_user_name(user_name)
+                if account:
+                    if bcrypt.checkpw(password.encode('utf-8'), account.get_password()) and user_name != "admin":
+                        session['user_name'] = user_name
+                        return redirect(url_for('user_interface'))
+                    elif bcrypt.checkpw(password.encode('utf-8'), account.get_password()) and user_name == "admin":
+                        session['user_name'] = user_name
+                        return redirect(url_for('admin_home'))
+                    else:
+                        error_message = "Incorrect password. Please try again."
                 else:
-                    error_message = "Incorrect password. Please try again."
+                    error_message = "Invalid user name"
             else:
-                error_message = "User not found."
+                error_message = "Username and password are required."        
         elif "create_button" in request.form:
             return redirect(url_for('create_account'))
 
