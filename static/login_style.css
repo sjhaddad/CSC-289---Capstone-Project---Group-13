@@ -73,13 +73,13 @@
     font-weight: lighter;
   }
   
-  .input-group.success input {
+  /* .input-group.success input {
     box-shadow: 0 0 0 1px hsl(var(--success-hsl));
   }
   
   .input-group.error input {
     box-shadow: 0 0 0 1px hsl(var(--error-hsl));
-  }
+  } */
   
   .input-group input:focus {
     box-shadow: 0 0 0 1px hsl(var(--primary-hsl));
