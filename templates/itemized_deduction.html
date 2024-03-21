@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itemized Deductions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="centered-container">
+        <h2 class="banner">Itemized Deductions</h2>
+        <form method="post">
+            <label for="charitable_contributions">Charitable Contributions:</label><br>
+            <input type="number" id="charitable_contributions" name="charitable_contributions" class="text-box"><br><br>
+
+            <label for="mortgage_interest">Mortgage Interest:</label><br>
+            <input type="number" id="mortgage_interest" name="mortgage_interest" class="text-box"><br><br>
+
+            <label for="medical_expenses">Medical Expenses:</label><br>
+            <input type="number" id="medical_expenses" name="medical_expenses" class="text-box"><br><br>
+
+            <label for="other_expenses">Other Expenses:</label><br>
+            <input type="number" id="other_expenses" name="other_expenses" class="text-box"><br><br>
+
+            <input type="submit" value="Next" class="button"><br><br>
+        </form>
+        <form method="POST">
+            <input type="submit" name="return_home" value="Return Home" class="button">
+            <br>
+        </form>
+    </div>
+</body>
+</html>

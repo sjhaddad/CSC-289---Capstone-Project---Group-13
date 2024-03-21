@@ -22,14 +22,14 @@ class Tax_table_manager:
     def create_tax_table(self):
         # Define the SQL statement to create the tax table
         create_table_query = """
-        CREATE TABLE tax (
+        CREATE TABLE tax1 (
             tax_id INT AUTO_INCREMENT PRIMARY KEY,
             user_name VARCHAR(100),
             FOREIGN KEY (user_name) REFERENCES user(user_name) ON DELETE CASCADE,
             year INT,
             status VARCHAR(10),
             total_income FLOAT(10, 2),
-            adjusted_total_income FLOAT(10,2),
+            deductible FLOAT(10,2),
             income_tax FLOAT(10, 2)
         )
         """
@@ -44,7 +44,7 @@ class Tax_table_manager:
         # Define the SQL statement to create the tax table
 
         # Execute the SQL statement to create the table
-        self.mycursor.execute("DROP TABLE tax")
+        self.mycursor.execute("DROP TABLE tax1")
 
         # Commit the transaction
         self.db.commit()
@@ -58,12 +58,12 @@ class Tax_table_manager:
         year = tax_record.get_year()
         status = tax_record.get_status()
         total_income = tax_record.get_total_income()
-        adjusted_total_income = tax_record.get_adjusted_total_income()
+        deductible = tax_record.get_deductible()
         income_tax = tax_record.get_income_tax()
 
         try:
-            sql = "INSERT INTO tax (user_name, year, status, total_income, adjusted_total_income, income_tax) VALUES (%s, %s, %s, %s, %s, %s)"
-            val = (user_name, year, status, total_income, adjusted_total_income, income_tax)
+            sql = "INSERT INTO tax1 (user_name, year, status, total_income, deductible, income_tax) VALUES (%s, %s, %s, %s, %s, %s)"
+            val = (user_name, year, status, total_income, deductible, income_tax)
             self.mycursor.execute(sql, val)
             self.db.commit()
             print(f'Estimated income tax: ${income_tax:.2f}')
@@ -73,7 +73,7 @@ class Tax_table_manager:
             print(f"Failed to add user: {e}")
     
     def delete_record(self, user_name):
-        sql_check = "SELECT * FROM tax WHERE user_name = %s"
+        sql_check = "SELECT * FROM tax1 WHERE user_name = %s"
         self.mycursor.execute(sql_check, (user_name,))
         result = self.mycursor.fetchone()
 
@@ -97,16 +97,16 @@ class Tax_table_manager:
     '''
     def display_table(self):
         try:
-            self.mycursor.execute("SELECT * FROM tax")
+            self.mycursor.execute("SELECT * FROM tax1")
             rows = self.mycursor.fetchall()
 
             print("\nTax Table:")
             print("{:<10} {:<30} {:<20} {:<20} {:<20} {:<30} {:<20}".format(
-                "Tax ID", "User Name", "Year", "Status", "Total Income", "Adjusted Income", "Income Tax"))
+                "Tax ID", "User Name", "Year", "Status", "Total Income", "Deductible", "Income Tax"))
             for row in rows:
-                tax_id, user_name, year, status, total_income, adjusted_total_income, income_tax = row
+                tax_id, user_name, year, status, total_income, deductible, income_tax = row
                 print("{:<10} {:<30} {:<20} {:<20} {:<20}{:<30} {:<20}".format(
-                    tax_id, user_name, year, status, total_income, adjusted_total_income, income_tax))
+                    tax_id, user_name, year, status, total_income, deductible, income_tax))
         except mysql.connector.Error as e:
             print(f"Failed to display table: {e}")
 
@@ -117,7 +117,7 @@ class Tax_table_manager:
         try:
             tax_records = []  # List to store Tax objects
 
-            sql = "SELECT * FROM tax WHERE user_name = %s"
+            sql = "SELECT * FROM tax1 WHERE user_name = %s"
             val = (user_name,)
 
             # Execute the SQL statement
@@ -129,9 +129,9 @@ class Tax_table_manager:
             # Iterate over the fetched records
             for record in results:
                 # Unpack the record
-                tax_id, user_name, year, status, total_income, adjusted_total_income, income_tax = record
+                tax_id, user_name, year, status, total_income, deductible, income_tax = record
                 # Create a Tax object and append it to the list
-                tax_obj = TaxRecord(user_name, year, status, total_income)
+                tax_obj = TaxRecord(user_name, year, status, total_income, deductible)
                 tax_records.append(tax_obj)
 
             # Close the cursor after fetching and processing the results
@@ -146,12 +146,12 @@ class Tax_table_manager:
 
     def get_tax_dict(self):
         tax_data_dict = {}
-        self.mycursor.execute("SELECT * FROM tax")
+        self.mycursor.execute("SELECT * FROM tax1")
         rows = self.mycursor.fetchall()
 
         for row in rows:
-            tax_id, user_name, year, status, total_income, adjusted_total_income, income_tax = row
-            user_record = TaxRecord(user_name, year, status, total_income)
+            tax_id, user_name, year, status, total_income, deductible, income_tax = row
+            user_record = TaxRecord(user_name, year, status, total_income, deductible)
             tax_data_dict[user_name] = user_record
 
         return tax_data_dict
@@ -160,7 +160,7 @@ class Tax_table_manager:
     INPUT VALIDATION FUNCTIONS
     '''
     def is_year_unique(self, user_name, year):
-        sql = "SELECT COUNT(*) FROM tax WHERE user_name = %s AND year = %s"
+        sql = "SELECT COUNT(*) FROM tax1 WHERE user_name = %s AND year = %s"
         val = (user_name, year)
         self.mycursor.execute(sql, val)
         count = self.mycursor.fetchone()[

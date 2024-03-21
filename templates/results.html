@@ -13,7 +13,9 @@
         <p>Year: {{ tax_record.get_year() }}</p>
         <p>Status: {{ tax_record.get_status() }}</p>
         <p>Total income: {{ tax_record.get_total_income() }}</p>
-        <p>Adjusted income: {{ tax_record.get_adjusted_total_income() }}</p>
+        <p>Deducible: {{ tax_record.get_deductible() }}</p>
+
+
         <form method="POST">
                 <input type="submit" name="return_home" value="Return Home" class="button"/>
             <br>

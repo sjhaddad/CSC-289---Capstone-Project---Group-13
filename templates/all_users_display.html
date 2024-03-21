@@ -12,7 +12,6 @@
         <table class="table">
             <tr class="table__header">
                 <th class="table__cell">Username</th>
-                <th class="table__cell">Password</th>
                 <th class="table__cell">Email</th>
                 <th class="table__cell">First Name</th>
                 <th class="table__cell">Last Name</th>
@@ -20,7 +19,6 @@
             {% for user in user_data %}
             <tr class="table__row">
                 <td class="table__cell">{{ user_data[user].user_name }}</td>
-                <td class="table__cell">{{ user_data[user].password }}</td>
                 <td class="table__cell">{{ user_data[user].email }}</td>
                 <td class="table__cell">{{ user_data[user].first_name }}</td>
                 <td class="table__cell">{{ user_data[user].last_name }}</td>
@@ -33,7 +31,7 @@
                 <th class="table__cell">Year</th>
                 <th class="table__cell">Status</th>
                 <th class="table__cell">Total Income</th>
-                <th class="table__cell">Adjusted Total Income</th>
+                <th class="table__cell">Deductible</th>
                 <th class="table__cell">Income Tax</th>
             </tr>
             {% for user in tax_data %}
@@ -42,7 +40,7 @@
                 <td class="table__cell">{{ tax_data[user].year }}</td>
                 <td class="table__cell">{{ tax_data[user].status }}</td>
                 <td class="table__cell">${{ tax_data[user].total_income }}</td>
-                <td class="table__cell">${{ tax_data[user].adjusted_total_income }}</td>
+                <td class="table__cell">${{ tax_data[user].deductible }}</td>
                 <td class="table__cell">${{ tax_data[user].income_tax }}</td>
             </tr>
             {% endfor %}

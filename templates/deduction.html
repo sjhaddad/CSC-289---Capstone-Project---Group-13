@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deduction Selection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="centered-container">
+        <h2 class="banner">Deduction Selection</h2>
+        <form action="/deduction" method="post">
+            <label for="deduction_type">Select Deduction Type:</label><br>
+            <select id="deduction_type" name="deduction_type">
+                <option value="standard">Standard Deduction</option>
+                <option value="itemized">Itemized Deduction</option>
+            </select><br><br>
+            <input type="submit" value="Submit" class="button"><br><br>
+        </form>
+    </div>
+</body>
+</html>

@@ -3,25 +3,23 @@ from constants import *
 
 class TaxRecord:
 
-    def __init__(self, user_name, year, status, total_income):
+    def __init__(self, user_name, year, status, total_income, deductible):
         self.user_name = user_name
         self.year = year
         self.status = status
         self.total_income = total_income
+        self.deductible = deductible
+        self.income_tax = (total_income - deductible) * INCOME_TAX
 
-        if status == 'married' and self.total_income > 22500:
-            self.adjusted_total_income = self.total_income - MARRIED_DEDUCTIBLE
-            self.income_tax =  self.adjusted_total_income * INCOME_TAX
-        elif status == 'single' and self.total_income > 12750:
-            self.adjusted_total_income = self.total_income - SINGLE_DEDUCTIBLE
-            self.income_tax =  self.adjusted_total_income * INCOME_TAX
-        else:
-            self.adjusted_total_income = self.total_income
-            self.income_tax = 0
+
 
     # Getters
-    def get_adjusted_total_income(self):
-        return self.adjusted_total_income
+
+    def get_deductible(self):
+        return self.deductible
+
+    # def get_adjusted_total_income(self):
+    #     return self.adjusted_total_income
 
     def get_income_tax(self):
         return self.income_tax
@@ -42,8 +40,11 @@ class TaxRecord:
         return self.income_tax
 
     # Setters
-    def set_adjusted_total_income(self, adjusted_income):
-        self.adjusted_total_income = adjusted_income
+
+    def set_deductible(self, deductible):
+        self.deductible = deductible
+    # def set_adjusted_total_income(self, adjusted_income):
+    #     self.adjusted_total_income = adjusted_income
 
     def set_income_tax(self, income_tax):
         self.income_tax = income_tax
@@ -72,5 +73,5 @@ class TaxRecord:
             print("Year:", self.get_year())
             print("Status:", self.get_status())
             print(f'Total income: ${self.get_total_income():.2f}')
-            print(f'Adjusted income: ${self.get_adjusted_total_income():.2f}')
+            # print(f'Adjusted income: ${self.get_adjusted_total_income():.2f}')
             print(f"Income tax: ${self.get_income_tax():.2f}\n")
