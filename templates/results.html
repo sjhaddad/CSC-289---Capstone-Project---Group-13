@@ -10,11 +10,11 @@
     <div class="full-screen-container">
         <div class="content-container">
             <h1 class="content-title">Tax Calculation Results</h1>
-            <p>Estimated income tax: {{ tax_record.get_income_tax() }}</p>
+            <p>Estimated income tax: ${{ '%.2f' % tax_record.get_income_tax() }}</p>
             <p>Year: {{ tax_record.get_year() }}</p>
             <p>Status: {{ tax_record.get_status() }}</p>
-            <p>Total income: {{ tax_record.get_total_income() }}</p>
-            <p>Deductible: {{ tax_record.get_deductible() }}</p>
+            <p>Total income: ${{ '%.2f' % tax_record.get_total_income() }}</p>
+            <p>Deductible: ${{ '%.2f' % tax_record.get_deductible() }}</p>
     
     
             <form method="POST" class="form">

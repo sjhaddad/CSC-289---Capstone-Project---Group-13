@@ -34,7 +34,8 @@
                     </span>
                     <ul id="tax-records-{{ tax_record.get_year() }}" class="tax-records">
                         <li>
-                            Total Income: {{ tax_record.get_total_income() }} Income Tax: {{ tax_record.get_income_tax() }}
+                            <p>Total Income: ${{ '%.2f' % tax_record.get_total_income() }}</p>
+                            <p>Income Tax: ${{ '%.2f' % tax_record.get_income_tax() }}</p>
                         </li>
                     </ul>
                 </li>

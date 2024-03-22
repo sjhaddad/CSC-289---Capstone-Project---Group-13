@@ -46,9 +46,9 @@
                     <td class="table__cell">{{ tax_data[i].user_name }}</td>
                     <td class="table__cell">{{ tax_data[i].year }}</td>
                     <td class="table__cell">{{ tax_data[i].status }}</td>
-                    <td class="table__cell">{{ tax_data[i].total_income }}</td>
-                    <td class="table__cell">{{ tax_data[i].deductible }}</td>
-                    <td class="table__cell">{{ tax_data[i].income_tax }}</td>
+                    <td class="table__cell">${{ '%.2f' % tax_data[i].total_income }}</td>
+                    <td class="table__cell">${{ '%.2f' % tax_data[i].deductible }}</td>
+                    <td class="table__cell">${{ '%.2f' % tax_data[i].income_tax }}</td>
                 </tr>
                 {% endfor %}
             </table>

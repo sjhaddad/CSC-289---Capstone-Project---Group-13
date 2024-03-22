@@ -40,15 +40,15 @@
                     <td class="table__cell">{{ tax_data[user].user_name }}</td>
                     <td class="table__cell">{{ tax_data[user].year }}</td>
                     <td class="table__cell">{{ tax_data[user].status }}</td>
-                    <td class="table__cell">${{ tax_data[user].total_income }}</td>
-                    <td class="table__cell">${{ tax_data[user].deductible }}</td>
-                    <td class="table__cell">${{ tax_data[user].income_tax }}</td>
+                    <td class="table__cell">${{ '%.2f' % tax_data[user].total_income }}</td>
+                    <td class="table__cell">${{ '%.2f' % tax_data[user].deductible }}</td>
+                    <td class="table__cell">${{ '%.2f' % tax_data[user].income_tax }}</td>
                 </tr>
                 {% endfor %}
             </table>
             <br>
             <form method="POST" class="form">
-                    <input type="submit" name="return_home" value="Return Home" class="content-button"/>
+                <input type="submit" name="return_home" value="Return Home" class="content-button"/>
                 <br>
             </form>
         </div>
