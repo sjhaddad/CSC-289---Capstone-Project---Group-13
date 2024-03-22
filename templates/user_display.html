@@ -17,32 +17,33 @@
     </script>
 </head>
 <body>
-    <div class="centered-container">
-        <h2 class="banner">User Information</h2>
-        <p><strong>Name:</strong> {{ account.get_user_name() }}</p>
-        <p><strong>Email:</strong>  {{ account.get_email() }}</p>
-        <p><strong>First Name:</strong>  {{ account.get_first_name() }}</p>
-        <p><strong>Last Name:</strong>  {{ account.get_last_name() }}</p>
-
-        <h2 class="banner">Tax Records</h2>
-        <ul>
-            {% for tax_record in tax_records %}
-            <li>
-                <span class="year-header" onclick="toggleTaxRecords('{{ tax_record.get_year() }}')">
-                    Year: {{ tax_record.get_year() }}
-                </span>
-                <ul id="tax-records-{{ tax_record.get_year() }}" class="tax-records">
-                    <li>
-                        Total Income: {{ tax_record.get_total_income() }} Income Tax: {{ tax_record.get_income_tax() }}
-                    </li>
-                </ul>
-            </li>
-            {% endfor %}
-        </ul>
-        <form method="POST">
-            <input type="submit" name="return_home" value="Return Home" class="button"/>
-        <br>
-        </form>
+    <div class="full-screen-container">
+        <div class="content-container">
+            <h2 class="content-title">User Information</h2>
+            <p><strong>Name:</strong> {{ account.get_user_name() }}</p>
+            <p><strong>Email:</strong>  {{ account.get_email() }}</p>
+            <p><strong>First Name:</strong>  {{ account.get_first_name() }}</p>
+            <p><strong>Last Name:</strong>  {{ account.get_last_name() }}</p>
+    
+            <h2 class="content-title">Tax Records</h2>
+            <ul>
+                {% for tax_record in tax_records %}
+                <li>
+                    <span class="year-header" onclick="toggleTaxRecords('{{ tax_record.get_year() }}')">
+                        Year: {{ tax_record.get_year() }}
+                    </span>
+                    <ul id="tax-records-{{ tax_record.get_year() }}" class="tax-records">
+                        <li>
+                            Total Income: {{ tax_record.get_total_income() }} Income Tax: {{ tax_record.get_income_tax() }}
+                        </li>
+                    </ul>
+                </li>
+                {% endfor %}
+            </ul>
+            <form method="POST" class="form">
+                <input type="submit" name="return_home" value="Return Home" class="content-button"/>
+            </form>
+        </div>
     </div>
 </body>
 </html>

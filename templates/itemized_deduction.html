@@ -7,27 +7,36 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="centered-container">
-        <h2 class="banner">Itemized Deductions</h2>
-        <form method="post">
-            <label for="charitable_contributions">Charitable Contributions:</label><br>
-            <input type="number" id="charitable_contributions" name="charitable_contributions" class="text-box"><br><br>
+    <div class="full-screen-container">
+        <div class="content-container">
+            <h2 class="content-title">Itemized Deductions</h2>
+            <form method="POST" class="form">
+                <div class="input-group">
+                    <label for="charitable_contributions">Charitable Contributions:</label>
+                    <input type="number" id="charitable_contributions" name="charitable_contributions" class="text-box">
+                </div>
+    
+                <div class="input-group">
+                    <label for="mortgage_interest">Mortgage Interest:</label>
+                    <input type="number" id="mortgage_interest" name="mortgage_interest" class="text-box">    
+                </div>
+    
+                <div class="input-group">
+                    <label for="medical_expenses">Medical Expenses:</label>
+                    <input type="number" id="medical_expenses" name="medical_expenses" class="text-box">          
+                </div>
 
-            <label for="mortgage_interest">Mortgage Interest:</label><br>
-            <input type="number" id="mortgage_interest" name="mortgage_interest" class="text-box"><br><br>
-
-            <label for="medical_expenses">Medical Expenses:</label><br>
-            <input type="number" id="medical_expenses" name="medical_expenses" class="text-box"><br><br>
-
-            <label for="other_expenses">Other Expenses:</label><br>
-            <input type="number" id="other_expenses" name="other_expenses" class="text-box"><br><br>
-
-            <input type="submit" value="Next" class="button"><br><br>
-        </form>
-        <form method="POST">
-            <input type="submit" name="return_home" value="Return Home" class="button">
-            <br>
-        </form>
+                <div class="input-group">
+                    <label for="other_expenses">Other Expenses:</label>
+                    <input type="number" id="other_expenses" name="other_expenses" class="text-box">         
+                </div>
+    
+                <input type="submit" name="next" value="Next" class="content-button">
+            </form>
+            <form method="POST" class="form">
+                <input type="submit" name="return_home" value="Return Home" class="content-button">
+            </form>
+        </div>
     </div>
 </body>
 </html>

@@ -193,14 +193,17 @@ def deduction():
 @app.route('/itemized_deduction', methods=['GET', 'POST'])
 def itemized_deduction():
     if request.method == "POST":
-        charitable_contributions = float(request.form["charitable_contributions"])
-        mortgage_interest = float(request.form["mortgage_interest"])
-        medical_expenses = float(request.form["medical_expenses"])
-        other_expenses = float(request.form["other_expenses"])
-        deductible = charitable_contributions + mortgage_interest + medical_expenses + other_expenses
-        session['deductible'] = deductible
+        if "next" in request.form:
+            charitable_contributions = float(request.form["charitable_contributions"])
+            mortgage_interest = float(request.form["mortgage_interest"])
+            medical_expenses = float(request.form["medical_expenses"])
+            other_expenses = float(request.form["other_expenses"])
+            deductible = charitable_contributions + mortgage_interest + medical_expenses + other_expenses
+            session['deductible'] = deductible
 
-        return redirect(url_for('calculate_tax'))
+            return redirect(url_for('calculate_tax'))
+        elif "return_home" in request.form:
+            return redirect(url_for('user_interface'))
 
     return render_template("itemized_deduction.html")
 

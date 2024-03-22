@@ -7,19 +7,21 @@
     <title>Tax Calculation Results</title>
 </head>
 <body>
-    <div class="centered-container">
-        <h1 class="banner">Tax Calculation Results</h1>
-        <p>Estimated income tax: {{ tax_record.get_income_tax() }}</p>
-        <p>Year: {{ tax_record.get_year() }}</p>
-        <p>Status: {{ tax_record.get_status() }}</p>
-        <p>Total income: {{ tax_record.get_total_income() }}</p>
-        <p>Deducible: {{ tax_record.get_deductible() }}</p>
-
-
-        <form method="POST">
-                <input type="submit" name="return_home" value="Return Home" class="button"/>
-            <br>
-        </form>
+    <div class="full-screen-container">
+        <div class="content-container">
+            <h1 class="content-title">Tax Calculation Results</h1>
+            <p>Estimated income tax: {{ tax_record.get_income_tax() }}</p>
+            <p>Year: {{ tax_record.get_year() }}</p>
+            <p>Status: {{ tax_record.get_status() }}</p>
+            <p>Total income: {{ tax_record.get_total_income() }}</p>
+            <p>Deductible: {{ tax_record.get_deductible() }}</p>
+    
+    
+            <form method="POST" class="form">
+                    <input type="submit" name="return_home" value="Return Home" class="content-button"/>
+                <br>
+            </form>
+        </div>
     </div>
 </body>
 </html>

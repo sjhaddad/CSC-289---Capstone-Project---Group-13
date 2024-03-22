@@ -7,27 +7,23 @@
     <title>Shuttle Admin</title>
 </head>
 <body>
-    <div class="centered-container">
-        <h1 class="banner">Delete User by Name</h1>
-        <form method="POST">
-            <fieldset>
-                <label for="delete_name">Delete User:</label>
-                <input type="text" id="delete_name" name="delete_name" class="text-box"><br><br>
-                <label for="delete_user">Delete:</label>
-                <input type="submit" name="delete_user" value="Delete" class="button"/>
-            </fieldset>
-            <br>
-            {% if feedback_message == "" %}
-                <p></p>
-            {% else %}
-                <p>{{ feedback_message }}</p>
-            {% endif %}
-        </form>
-        <br>
-        <form method="POST">
-                <input type="submit" name="return_home" value="Return Home" class="button"/>
-            <br>
-        </form>
+    <div class="full-screen-container">
+        <div class="content-container">
+            <h1 class="content-title">Delete User by Username</h1>
+            <form method="POST" class="form">
+                    <div class="input-group">
+                        <label for="delete_name">Delete User:</label>
+                        <input type="text" id="delete_name" name="delete_name" class="text-box">
+                    </div>
+                    <input type="submit" name="delete_user" value="Delete" class="content-button"/>
+                {% if feedback_message != "" %}
+                <span class="msg">{{ feedback_message }}</span>
+                {% endif %}
+            </form>
+            <form method="POST" class="form">
+                    <input type="submit" name="return_home" value="Return Home" class="content-button"/>
+            </form>
+        </div>
     </div>
 </body>
 </html>

@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login_style.css') }}">
+  <title>Shuttle Cash</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
   <div class="full-screen-container">
-    <div class="login-container">
-      <h1 class="login-title">Welcome to ShuttleCash!</h1>
+    <div class="content-container">
+      <h1 class="content-title">Welcome to ShuttleCash!</h1>
       <form class="form" method="POST">
         <div class="input-group success">
           <label for="username">User name</label>
@@ -26,7 +26,7 @@
           <a href="/request_password_reset" class="register-link" id="password_reset">Forgot password?</a>
         </div>
         
-        <button type="submit" class="login-button" name="login-button">Login</button>
+        <button type="submit" class="content-button" name="login-button">Login</button>
         <p class="register-prompt">Not registered? <a href="/create_account" class="register-link" id="create_button">Create an account!</a></p>
       </div>
   </div>

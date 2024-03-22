@@ -27,30 +27,37 @@
     </script>
 </head>
 <body>
-    <div class="centered-container">
-        <h2 class="banner">Tax Calculator</h2>
-        {% if error_message %}
-            <p style="color: red;">{{ error_message }}</p>
-        {% endif %}
-        <form action="/calculate_tax" method="post" onsubmit="return validateForm()">
-            <label for="year">Year:</label><br>
-            <input type="text" id="year" name="year" required class="text-box"><br><br>
-
-            <label for="status">Marital Status:</label><br>
-            <select id="status" name="status" required>
-                <option value="single">Single</option>
-                <option value="married">Married</option>
-            </select><br><br>
-
-            <label for="income">Total Annual Income:</label><br>
-            <input type="number" id="income" name="income" required class="text-box"><br><br>
-
-            <input type="submit" name="calculate_submit" value="Calculate Tax" class="button"><br><br>
-        </form>
-        <form method="POST">
-                <input type="submit" name="return_home" value="Return Home" class="button"/>
-            <br>
-        </form>
+    <div class="full-screen-container">
+        <div class="content-container">
+            <h2 class="content-title">Tax Calculator</h2>
+            {% if error_message != "" %}
+            <span class="msg">{{ error_message }}</span>
+            {% endif %}
+            <form action="/calculate_tax" method="post" onsubmit="return validateForm()" class="form">
+                <div class="input-group">
+                    <label for="year">Year:</label>
+                    <input type="text" id="year" name="year" required class="text-box">
+                </div>
+                
+                <div class="input-group">
+                    <label for="status">Marital Status:</label>
+                    <select id="status" name="status" required>
+                        <option value="single">Single</option>
+                        <option value="married">Married</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="income">Total Annual Income:</label>
+                    <input type="number" id="income" name="income" required class="text-box">
+                </div>
+    
+                <input type="submit" name="calculate_submit" value="Calculate Tax" class="content-button">
+            </form>
+            <form method="POST" class="form">
+                    <input type="submit" name="return_home" value="Return Home" class="content-button"/>
+            </form>
+        </div>
     </div>
 </body>
 </html>
