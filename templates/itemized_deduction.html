@@ -13,22 +13,22 @@
             <form method="POST" class="form">
                 <div class="input-group">
                     <label for="charitable_contributions">Charitable Contributions:</label>
-                    <input type="number" id="charitable_contributions" name="charitable_contributions" class="text-box">
+                    <input type="number" id="charitable_contributions" name="charitable_contributions" class="text-box" min="0" step="1" required>
                 </div>
-    
+
                 <div class="input-group">
                     <label for="mortgage_interest">Mortgage Interest:</label>
-                    <input type="number" id="mortgage_interest" name="mortgage_interest" class="text-box">    
+                    <input type="number" id="mortgage_interest" name="mortgage_interest" class="text-box" min="0" step="1" required>
                 </div>
-    
+
                 <div class="input-group">
                     <label for="medical_expenses">Medical Expenses:</label>
-                    <input type="number" id="medical_expenses" name="medical_expenses" class="text-box">          
+                    <input type="number" id="medical_expenses" name="medical_expenses" class="text-box" min="0" step="1" required>
                 </div>
 
                 <div class="input-group">
                     <label for="other_expenses">Other Expenses:</label>
-                    <input type="number" id="other_expenses" name="other_expenses" class="text-box">         
+                    <input type="number" id="other_expenses" name="other_expenses" class="text-box" min="0" step="1" required>
                 </div>
     
                 <input type="submit" name="next" value="Next" class="content-button">
