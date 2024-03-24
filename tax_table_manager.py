@@ -15,7 +15,7 @@ class Tax_table_manager:
             passwd=self.passwd,
             database=self.database
         )
-        self.mycursor = self.db.cursor()
+        self.mycursor = self.db.cursor(buffered=True)
     '''
     TABLE CREATION AND DELETION FUNCTIONS
     '''

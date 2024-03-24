@@ -71,8 +71,6 @@ def index():
 Create account page, accepting input for username, password, email, first name, and last name to create a new account stored in the user table.
 Redirects to /user_interface upon successful account creation.
 '''
-
-
 @app.route('/create_account', methods=["GET", "POST"])
 def create_account():
     error_message = ""
