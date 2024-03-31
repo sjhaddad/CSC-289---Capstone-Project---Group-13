@@ -126,7 +126,7 @@ select option {
     font-size: 2rem;
     font-weight: normal;
 }
-  
+
 .form {
     display: flex;
     flex-direction: column;

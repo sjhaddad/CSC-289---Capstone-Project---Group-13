@@ -64,6 +64,9 @@ def index():
         elif "create_button" in request.form:
             return redirect(url_for('create_account'))
 
+        elif "details" in request.form:
+            return redirect(url_for('details'))
+
     return render_template("index.html", error_message=error_message)
 
 
@@ -134,6 +137,10 @@ def password_reset_link():
             return render_template('password_reset_link.html', account=account, error_message=error_message)
 
     return render_template('password_reset_link.html', account=account)
+
+@app.route('/details')
+def details():
+    return render_template('details.html')
 
 
 #### USER ACCOUNT PAGES ####
