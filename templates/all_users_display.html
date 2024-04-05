@@ -36,14 +36,16 @@
                     <th class="table__cell">Income Tax</th>
                 </tr>
                 {% for user in tax_data %}
-                <tr class="table__row">
-                    <td class="table__cell">{{ tax_data[user].user_name }}</td>
-                    <td class="table__cell">{{ tax_data[user].year }}</td>
-                    <td class="table__cell">{{ tax_data[user].status }}</td>
-                    <td class="table__cell">${{ '%.2f' % tax_data[user].total_income }}</td>
-                    <td class="table__cell">${{ '%.2f' % tax_data[user].deductible }}</td>
-                    <td class="table__cell">${{ '%.2f' % tax_data[user].income_tax }}</td>
-                </tr>
+                    {% for entry in user %}
+                    <tr class="table__row">
+                        <td class="table__cell">{{ entry.user_name }}</td>
+                        <td class="table__cell">{{ entry.year }}</td>
+                        <td class="table__cell">{{ entry.status }}</td>
+                        <td class="table__cell">${{ '%.2f' % entry.total_income }}</td>
+                        <td class="table__cell">${{ '%.2f' % entry.deductible }}</td>
+                        <td class="table__cell">${{ '%.2f' % entry.income_tax }}</td>
+                    </tr>
+                    {% endfor %}
                 {% endfor %}
             </table>
             <br>

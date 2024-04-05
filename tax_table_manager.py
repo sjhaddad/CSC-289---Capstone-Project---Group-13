@@ -145,14 +145,18 @@ class Tax_table_manager:
             return None  # Return None in case of an error
 
     def get_tax_dict(self):
-        tax_data_dict = {}
+        tax_data_dict = []
         self.mycursor.execute("SELECT * FROM tax1")
         rows = self.mycursor.fetchall()
+        last_user = ""
 
         for row in rows:
             tax_id, user_name, year, status, total_income, deductible, income_tax = row
-            user_record = TaxRecord(user_name, year, status, total_income, deductible)
-            tax_data_dict[user_name] = user_record
+            if user_name == last_user:
+                break
+            else:
+                tax_data_dict.append(self.get_tax_records(user_name))
+                last_user = user_name
 
         return tax_data_dict
     
