@@ -5,63 +5,53 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ShuttleCash - Income Tax Estimator for North Carolinian Residents</title>
-  <style>
-    /* CSS styles for better presentation */
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 0 20px;
-    }
-    h1, h2 {
-      text-align: center;
-    }
-    p {
-      margin-bottom: 20px;
-    }
-  </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
 </head>
 <body>
-  <div class="container">
-    <h1>ShuttleCash - Income Tax Estimator for North Carolinian Residents</h1>
+  <div class="full-screen-container">
+    <div class="content-container">
+      <h1 class="content-title">ShuttleCash - Income Tax Estimator for North Carolinian Residents</h1>
 
-    <h2>About</h2>
-    <p>
-      ShuttleCash is a web application designed to help North Carolinian residents estimate their income tax for Tax Year 2024.
-    </p>
-
-    <h2>How Estimates are Calculated</h2>
-    <p>
-      For Tax Year 2024, the North Carolina individual income tax rate is 4.75% (0.0475).
-      ShuttleCash applies this rate to the taxable income entered by the user to calculate the estimated tax amount.
-    </p>
-
-    <h2>Deductibles</h2>
-    <p>
-      A deductible is an amount of money that the taxpayer is allowed to subtract from their adjusted gross income (AGI) to reduce their taxable income.
-    </p>
-    <p>
-      For Tax Year 2024, the deductible amounts are as follows:
-    </p>
-    <ul>
-      <li>Single: $12,750</li>
-      <li>Married Filing Jointly/Qualifying Widow(er)/Surviving Spouse: $25,500</li>
-    </ul>
-
-    <h2>Itemized Deductions</h2>
-    <p>
-      Taxpayers have the option to either take the standard deduction or itemize their deductions.
-      If you choose to itemize, you can deduct specific expenses such as medical expenses, state and local taxes, mortgage interest, and charitable contributions.
-    </p>
-    <p>
-      The deductible amount will be calculated based on the total of your itemized deductions.
-      If the total exceeds the standard deduction amount, you should opt for itemized deductions to lower your taxable income further.
-    </p>
+      <h2>About</h2>
+      <p>
+        ShuttleCash is a web application designed to help North Carolinian residents estimate their income tax for Tax Year 2024.
+      </p>
+  
+      <h2>How Estimates are Calculated</h2>
+      <p>
+        For Tax Year 2024, the North Carolina individual income tax rate is 4.75% (0.0475).
+        ShuttleCash applies this rate to the taxable income entered by the user to calculate the estimated tax amount.
+      </p>
+  
+      <h2>Deductibles</h2>
+      <p>
+        A deductible is an amount of money that the taxpayer is allowed to subtract from their adjusted gross income (AGI) to reduce their taxable income.
+      </p>
+      <p>
+        For Tax Year 2024, the deductible amounts are as follows:
+      </p>
+      <ul>
+        <li>Single: $12,750</li>
+        <li>Married Filing Jointly/Qualifying Widow(er)/Surviving Spouse: $25,500</li>
+      </ul>
+  
+      <h2>Itemized Deductions</h2>
+      <p>
+        Taxpayers have the option to either take the standard deduction or itemize their deductions.
+        If you choose to itemize, you can deduct specific expenses such as medical expenses, state and local taxes, mortgage interest, and charitable contributions.
+      </p>
+      <p>
+        The deductible amount will be calculated based on the total of your itemized deductions.
+        If the total exceeds the standard deduction amount, you should opt for itemized deductions to lower your taxable income further.
+      </p>
+      <button class="content-button" onclick="goBack()">Back</button>
+    </div>
   </div>
+  <script>
+        function goBack() {
+            window.location.href = '{{ url_for("index") }}';
+        }
+  </script>
+  <script src="/static/javascript/script.js"></script>
 </body>
 </html>

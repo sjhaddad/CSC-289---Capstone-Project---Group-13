@@ -8,6 +8,7 @@ from tax_record import TaxRecord
 from account import Account
 from flask_mail import Mail, Message
 from constants import *
+from flaskwebgui import FlaskUI
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'  # Set a secret key for session management
@@ -435,4 +436,4 @@ def delete_user():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    FlaskUI(app=app, server="flask").run()
