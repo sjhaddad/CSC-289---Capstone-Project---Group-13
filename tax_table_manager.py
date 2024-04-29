@@ -145,20 +145,34 @@ class Tax_table_manager:
             return None  # Return None in case of an error
 
     def get_tax_dict(self):
-        tax_data_dict = []
-        self.mycursor.execute("SELECT * FROM tax1")
-        rows = self.mycursor.fetchall()
-        last_user = ""
+        try:
+            tax_records = []  # List to store Tax objects
 
-        for row in rows:
-            tax_id, user_name, year, status, total_income, deductible, income_tax = row
-            if user_name == last_user:
-                break
-            else:
-                tax_data_dict.append(self.get_tax_records(user_name))
-                last_user = user_name
+            sql = "SELECT * FROM tax1"
 
-        return tax_data_dict
+            # Execute the SQL statement
+            self.mycursor.execute(sql)
+
+            # Fetch all the results
+            results = self.mycursor.fetchall()
+
+            # Iterate over the fetched records
+            for record in results:
+                # Unpack the record
+                tax_id, user_name, year, status, total_income, deductible, income_tax = record
+                # Create a Tax object and append it to the list
+                tax_obj = TaxRecord(user_name, year, status, total_income, deductible)
+                tax_records.append(tax_obj)
+
+            # Close the cursor after fetching and processing the results
+            # self.self.mycursor.close()
+
+            # Return the list of Tax objects
+            return tax_records
+
+        except mysql.connector.Error as e:
+            print(f"Failed to fetch tax records: {e}")
+            return None  # Return None in case of an error
     
     '''
     INPUT VALIDATION FUNCTIONS
